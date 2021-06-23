@@ -1,0 +1,56 @@
+*{
+    box-sizing: border-box;
+    margin:0px;
+    padding:0px;
+}
+.Tab{
+    display:flex;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    background-color:rgb(227, 255, 241);
+}
+
+.logo_spot{
+    font-size:small;
+    margin-right: 10px;
+    
+}
+.links{
+    align-items: center;
+    display:flex;
+    width:80%;
+    justify-content: center;
+
+}
+.button_home{
+    width:100px;
+    height:50px;
+    margin-right: 20px;
+    background-color: mintcream;
+    border:rgb(243, 255, 249);
+    border-radius: 10px;
+}
+.button_petition{
+    width:100px;
+    height:50px;
+    margin-right: 20px;
+    background-color: mintcream;
+    border:rgb(243, 255, 249);
+    border-radius: 10px;
+    margin-right: 20px;
+}
+.button_DM{
+    width:100px;
+    height:50px;
+    margin-right: 20px;
+    background-color: mintcream;
+    border:rgb(243, 255, 249);
+    border-radius: 10px;
+}
+.Tab h5{
+    font-size: medium;
+    display:block;
+}
+
+

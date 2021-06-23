@@ -1,9 +1,8 @@
-import React from "react"
-import NavigationTab from "./NavigationTab"
+import React from "react";
 
-class DirectMessagePage extends React.Component{
-    render(){
-        return(
+class DirectMessagePage extends React.Component {
+    render() {
+        return (
             <div>
                 <h1>DirectMessagePage</h1>
             </div>

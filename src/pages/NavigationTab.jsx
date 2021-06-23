@@ -1,30 +1,30 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import HomePage from "./HomePage";
-import PetitionPage from "./PetitionPage";
-import DirectMessagePage from "./DirectMessagePage";
+import "../HomePage.css";
 
-class NavigationTab extends React.Component{
-    render(){
-       return (
-            <head className="Tab">
-                <h1>로고 들어올 자리</h1>
-                    <body>
-                    <Link to ='/home'>
-                        <button1>홈</button1>
+
+class NavigationTab extends React.Component {
+    render() {
+        return (
+            <div className="Tab">
+                <h1 className = "logo_spot">로고 들어올 자리</h1>
+                <div className="links">
+                    <Link to='/home'>
+                        <button className = "button_home">홈</button>
                     </Link>
-                  
-                    <Link to = "/petition">
-                        <button2>게시글 목록</button2>
+
+                    <Link to="/petition">
+                        <button className = "button_petition">게시글 목록</button>
                     </Link>
-                    
-                    <Link to = "/DM">
-                        <button3>개발자 소개/문의</button3>
+
+                    <Link to="/DM">
+                        <button className = "button_DM">개발자 
+                        소개/문의</button>
                     </Link>
-                    </body>
+                </div>
 
                 <h5>로그인</h5>
-            </head >
+            </div >
         );
     }
 };
