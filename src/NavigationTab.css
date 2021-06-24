@@ -12,6 +12,7 @@
     background-color:whitesmoke;
     position:fixed;
     z-index: 1;
+
     border-bottom: thick;
     border-color: black;
 }
@@ -31,6 +32,10 @@
 .button_home{
     width:100px;
     height:50px;
+    font-size: large;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    cursor:pointer;
+
     margin-right: 20px;
     background-color:whitesmoke;   
     border:rgb(243, 255, 249);
@@ -39,16 +44,23 @@
 .button_petition{
     width:100px;
     height:50px;
+    font-size: large;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    cursor:pointer;
+
     margin-right: 20px;
     background-color:whitesmoke;   
     border:rgb(243, 255, 249);
     border-radius: 10px;
-    margin-right: 20px;
+
 }
 .button_DM{
-    width:100px;
+    width:150px;
     height:50px;
-    margin-right: 20px;
+    font-size: large;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    cursor:pointer;
+    
     background-color:whitesmoke;   
     border:rgb(243, 255, 249);
     border-radius: 10px;

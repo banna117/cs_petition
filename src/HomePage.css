@@ -9,7 +9,7 @@
     margin-top: 100px;
     height:100%;
     align-items: center;
-    justify-content: center;
+
     background-color:white;
 
 
@@ -50,6 +50,8 @@
     height:300px;
     margin-bottom: 50px;
     width:1000px;
+    border:thin;
+    border-color: tomato;
 }
 .top_id, .top_content{
     font-size: medium;
