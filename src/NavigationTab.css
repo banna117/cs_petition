@@ -1,14 +1,19 @@
-*{
+ *{
     box-sizing: border-box;
     margin:0px;
     padding:0px;
-}
+} 
 .Tab{
     display:flex;
-    height: 100px;
+    height: 100px; /*tab height */
+    width: 100%;
     justify-content: center;
     align-items: center;
-    background-color:rgb(227, 255, 241);
+    background-color:whitesmoke;
+    position:fixed;
+    z-index: 1;
+    border-bottom: thick;
+    border-color: black;
 }
 
 .logo_spot{
@@ -27,7 +32,7 @@
     width:100px;
     height:50px;
     margin-right: 20px;
-    background-color: mintcream;
+    background-color:whitesmoke;   
     border:rgb(243, 255, 249);
     border-radius: 10px;
 }
@@ -35,7 +40,7 @@
     width:100px;
     height:50px;
     margin-right: 20px;
-    background-color: mintcream;
+    background-color:whitesmoke;   
     border:rgb(243, 255, 249);
     border-radius: 10px;
     margin-right: 20px;
@@ -44,7 +49,7 @@
     width:100px;
     height:50px;
     margin-right: 20px;
-    background-color: mintcream;
+    background-color:whitesmoke;   
     border:rgb(243, 255, 249);
     border-radius: 10px;
 }

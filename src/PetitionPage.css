@@ -1,0 +1,12 @@
+
+*{
+    box-sizing: border-box;
+    margin:0px;
+    padding:0px;
+}
+.petition{
+    margin-top:100px;
+    height:100%;
+    position:absolute;
+    display: flex;
+}

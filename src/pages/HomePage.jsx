@@ -1,6 +1,8 @@
 import React from "react";
 import Top3Petition from "../Component/Top3Petition";
 import bannerImg from "./banner.png";
+import "../HomePage.css";
+
 
 class HomePage extends React.Component {
   render() {

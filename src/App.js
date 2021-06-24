@@ -13,7 +13,7 @@ class App extends React.Component{
 		return (
 
 			<Router>
-				<NavigationTab />
+				<NavigationTab/>
 				<Switch>
 					<Route path='/home'>
 						<HomePage />
