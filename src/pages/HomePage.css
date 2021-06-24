@@ -21,8 +21,10 @@
     background-color: whitesmoke;
 }
 
-/*Top3Petition.js*/
+/*TopPetition.js*/
 .top3_format{
+    
+
     display:flex;
     flex-direction: column;
     width:280px;
@@ -38,6 +40,7 @@
     margin-left:20px;
 
     word-break: break-all;
+    padding:7px;
 
 }
 
