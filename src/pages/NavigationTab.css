@@ -1,9 +1,5 @@
- *{
-    box-sizing: border-box;
-    margin:0px;
-    padding:0px;
-} 
-.Tab{
+
+.tab{
     display:flex;
     height: 100px; /*tab height */
     width: 100%;
@@ -17,19 +13,20 @@
     border-color: black;
 }
 
-.logo_spot{
+.tab .logo-spot{
     font-size:small;
     margin-right: 10px;
     
 }
-.links{
+.tab .links{
     align-items: center;
     display:flex;
     width:80%;
     justify-content: center;
+    flex-direction: row;
 
 }
-.button_home{
+.tab .links .tab-home{
     width:100px;
     height:50px;
     font-size: large;
@@ -41,7 +38,7 @@
     border:rgb(243, 255, 249);
     border-radius: 10px;
 }
-.button_petition{
+.tab .links .tab-petition{
     width:100px;
     height:50px;
     font-size: large;
@@ -54,7 +51,7 @@
     border-radius: 10px;
 
 }
-.button_DM{
+.tab .links .tab-dm{
     width:150px;
     height:50px;
     font-size: large;
@@ -65,7 +62,7 @@
     border:rgb(243, 255, 249);
     border-radius: 10px;
 }
-.Tab h5{
+.tab h5{
     font-size: medium;
     display:block;
 }

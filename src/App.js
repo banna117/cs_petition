@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import PetitionPage from "./pages/PetitionPage";
 import DirectMessagePage from "./pages/DirectMessagePage";
+import "./styles.css"
 
 class App extends React.Component{
 

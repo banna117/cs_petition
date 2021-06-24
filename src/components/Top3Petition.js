@@ -21,9 +21,9 @@ function Top3Petition() {
     return petitions.map((petition) => {
         return (
         <div key={petition.id} className="top3_format">
-            <h1 className="top_id">{petition.id}</h1>
-            <h2 className="top_title">{petition.title}</h2>
-            <h3 className="top_content">{petition.content}</h3>
+            <h1 className="id">{petition.id}</h1>
+            <h2 className="title">{petition.title}</h2>
+            <h3 className="content">{petition.content}</h3>
         </div>);
     })
 }

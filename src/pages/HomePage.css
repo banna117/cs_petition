@@ -1,8 +1,4 @@
- *{
-    box-sizing: border-box;
-    margin:0px;
-    padding:0px;
-} 
+
 .home_display{
     display: inline-flex;
     flex-direction: column;
@@ -15,7 +11,7 @@
 
 }
 
-.home_banner{
+.home_display .banner{
     width:70%;
     height:40%;
     margin-top: 100px;
@@ -25,6 +21,7 @@
     background-color: whitesmoke;
 }
 
+/*Top3Petition.js*/
 .top3_format{
     display:flex;
     flex-direction: column;
@@ -44,7 +41,7 @@
 
 }
 
-.home_top3{
+.home_display .top3{
     display: inline-flex;
     flex-direction: row;
     height:300px;
@@ -53,10 +50,10 @@
     border:thin;
     border-color: tomato;
 }
-.top_id, .top_content{
+.top3_format .top_id, .top3_format.top_content{
     font-size: medium;
 }
-.top_title{
+.top3_format .title{
     margin-top: 10px;
     margin-bottom: 20px;
 }

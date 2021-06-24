@@ -1,24 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../NavigationTab.css";
+import "./NavigationTab.css";
 
 
 class NavigationTab extends React.Component {
     render() {
         return (
-            <div className="Tab">
-                <h1 className = "logo_spot">로고 들어올 자리</h1>
+            <div className="tab">
+                <h1 className = "logo-spot">로고 들어올 자리</h1>
                 <div className="links">
                     <Link to='/home'>
-                        <button className = "button_home">홈</button>
+                        <button className = "tab-home">홈</button>
                     </Link>
 
                     <Link to="/petition">
-                        <button className = "button_petition">게시글 목록</button>
+                        <button className = "tab-petition">게시글 목록</button>
                     </Link>
 
                     <Link to="/DM">
-                        <button className = "button_DM">개발자 
+                        <button className = "tab-dm">개발자 
                         소개/문의</button>
                     </Link>
                 </div>

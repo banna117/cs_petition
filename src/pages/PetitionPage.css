@@ -1,9 +1,4 @@
 
-*{
-    box-sizing: border-box;
-    margin:0px;
-    padding:0px;
-}
 .petition{
     margin-top:100px;
     height:100%;
@@ -16,13 +11,13 @@
 
 }
 /*input!*/
-.petition_input{
+.petition .input{
     margin-top: 100px;
     width:fit-content;
     display:flex;
     flex-direction: row;
 }
-.petition_write{
+.petition .write{
     margin-left: 300px;
 
     width:80px;
@@ -32,7 +27,7 @@
     border:none;
     border-radius: 10px;
 }
-.petition_filter{
+.petition .filter{
     width:80px;
     height:30px;
     cursor: pointer;
@@ -41,19 +36,27 @@
     border-radius: 10px;
 }
 
-.petition_filter_input{
+.petition .filter_input{
     height:100%;
     margin-left:10px;
 }
-/*sth need to be modified*/
 
-.petition_petitionlist{
+
+.petition .petitionlist{
+    margin-top: 10px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     height:300px;
     margin-bottom: 50px;
     width:1000px;
     border:thin;
-    border-color: tomato;
+    background-color: teal;
+}
+
+/*temp need to be modified*/
+ .temp{
+    font-size: large;
+    z-index: 10;
+    height: fit-content;
 }
 
