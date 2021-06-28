@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./PetitionPage.css";
+import "./PetitionPage.scss";
 import ListedPetition from "../components/ListedPetition";
 
 
@@ -49,6 +49,7 @@ const petitions = [
   ]
 export default function PetitionPage() {
   const [modalOn, setModalOn] = useState(false);
+  
 
   const onOpenModal = () => {
     setModalOn(!modalOn);
@@ -60,10 +61,10 @@ export default function PetitionPage() {
       <div className="petition-write-modal">
         <div className="bg"></div>
         <div className="modal-box">
-          <input className="title" type="text" placeholder="제목"></input>
-          <textarea className="content" type="text" placeholder="청원 내용" ></textarea>
+            <input className="title" type="text" placeholder="제목"></input>
+            <textarea className="content" type="text" placeholder="청원 내용" ></textarea>
+            <button className="close-button" onClick={onOpenModal}>X</button>
         </div>
-        <button className="close-button" onClick={onOpenModal}>X</button>
       </div>
     );
   };
@@ -81,7 +82,6 @@ export default function PetitionPage() {
         </datalist>
         <React.Fragment>
           <button className="write" onClick={onOpenModal}>작성하기</button>
-          {console.log({modalOn})}
           {modalOn ? <WriteModal message = "i am here"/> : ''}
         </React.Fragment>
 
@@ -90,7 +90,7 @@ export default function PetitionPage() {
          {/* to show only 4 items per menu */}
          
         {petitions.map((petition) => {
-           console.log(petition);
+
             return (
               <ListedPetition
                 key={petition.id}

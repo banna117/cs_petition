@@ -1,0 +1,72 @@
+
+.tab{
+    display:flex;
+    height: 100px; /*tab height */
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color:whitesmoke;
+    position:fixed;
+    z-index: 1;
+
+    border-bottom: thick;
+    border-color: black;
+
+    .logo-spot{
+    font-size:small;
+    margin-right: 10px;
+    }
+
+    .links{
+    align-items: center;
+    display:flex;
+    width:80%;
+    justify-content: center;
+    flex-direction: row;
+
+        .tab-home{
+            width:100px;
+            height:50px;
+            font-size: large;
+            font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            cursor:pointer;
+        
+            margin-right: 20px;
+            background-color:whitesmoke;   
+            border:rgb(243, 255, 249);
+            border-radius: 10px;
+        }
+        .tab-petition{
+            width:100px;
+            height:50px;
+            font-size: large;
+            font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            cursor:pointer;
+        
+            margin-right: 20px;
+            background-color:whitesmoke;   
+            border:rgb(243, 255, 249);
+            border-radius: 10px;
+        
+        }
+        .tab-dm{
+            width:150px;
+            height:50px;
+            font-size: large;
+            font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            cursor:pointer;
+            
+            background-color:whitesmoke;   
+            border:rgb(243, 255, 249);
+            border-radius: 10px;
+        }
+    }
+    h5{
+        font-size: medium;
+        display:block;
+    }
+}
+
+
+
+

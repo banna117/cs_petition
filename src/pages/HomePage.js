@@ -1,7 +1,7 @@
 import React from "react";
 import TopPetition from "../components/TopPetition";
 import bannerImg from "../assets/img/banner.png";
-import "./HomePage.css";
+import "./HomePage.scss";
 
 
 
