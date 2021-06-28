@@ -4,7 +4,7 @@ const PORT = process.env.PORT || 4000;
 const db = require("./config/db");
 
 app.get("/api/products", (req, res) => {
-  db.query("SELECT * FROM users", (err, data) => {
+  db.query("SELECT * FROM test_petitions", (err, data) => {
     if (!err) res.send({ products: data });
     else res.send(err);
   });

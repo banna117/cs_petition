@@ -1,106 +1,129 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./PetitionPage.scss";
-import ListedPetition from "../components/ListedPetition";
+import PetitionCard from "../components/PetitionCard";
+import axios from "axios";
 
 
 const petitions = [
     {
-        id : 'minsoo1',
-        title : "학교 설비를 바꿔주세요. 부탁드립니다 사감선생asdfwegtawerg님. ",
-        content: "Do you agree?",
+        id: 'minsoo1',
+        title: "학교 설비를 바꿔주세요.  부탁드립니다 사감선생님. 줄이 바뀌면 어떻게 보일까요?????/",
+        content: "나의 사랑이 멀어지네 나의 어제는 사라지네 태양을 따라 도는 저 별들처럼 난 돌고 돌고 돌고 그대를 향한 나의 이 어리석은 사랑해 사랑해 사랑해 머물지 못 하는 내 두 누누에 고인 눈물이 흐르네 나의 사랑ㅇㄴ 어떠나가쎄.",
         date: "2021.06.13"
     },
     {
-        id : 'minsoo2',
-        title : "학교 설비를 바꿔주세요.",
-        content : "Do you agree?",
+        id: 'minsoo2',
+        title: "학교 설비를 바꿔주세요.",
+        content: "나의 사랑이 멀어지네 나의 어제는 사라지네 태양을 따라 도는 저 별들처럼 난 돌고 돌고 돌고 그대를 향한 나의 이 어리석은 사랑해 사랑해 사랑해 머물지 못 하는 내 두 누누에 고인 눈물이 흐르네 나의 사랑ㅇㄴ 어떠나가쎄.",
         date: "2021.06.13"
     },
     {
-        id : 'minsoo3',
-        title : "학교 설비를 바꿔주세요.",
-        content : "Do you agree?",
+        id: 'minsoo3',
+        title: "학교 설비를 바꿔주세요.",
+        content: "나의 사랑이 멀어지네 나의 어제는 사라지네 태양을 따라 도는 저 별들처럼 난 돌고 돌고 돌고 그대를 향한 나의 이 어리석은 사랑해 사랑해 사랑해 머물지 못 하는 내 두 누누에 고인 눈물이 흐르네 나의 사랑ㅇㄴ 어떠나가쎄.",
         date: "2021.06.13"
     },
     {
-        id : 'minsoo4',
-        title : "학교 설비를 바꿔주세요.",
-        content : "Do you agree?",
+        id: 'minsoo4',
+        title: "학교 설비를 바꿔주세요.",
+        content: "나의 사랑이 멀어지네 나의 어제는 사라지네 태양을 난 너를 믿었던 만큼 난아니 줄이 얼마나 길어야되는거야 내 친구도ㅛ 믿었기에 난 아무런 부담없이 널 내 친구에게 소개시켜줬고 따라 도는 저 별들처럼 난 돌고 돌고 돌고 그대를 향한 나의 이 어리석은 사랑해 사랑해 사랑해 머물지 못 하는 내 두 누누에 고인 눈물이 흐르네 나의 사랑ㅇㄴ 어떠나가쎄.",
         date: "2021.06.13"
     },
     {
-        id : 'minsoo5',
-        title : "학교 설비를 바꿔주세요.",
-        content : "Do you agree?",
+        id: 'minsoo5',
+        title: "학교 설비를 바꿔주세요.",
+        content: "나의 사랑이 멀어지네 나의 어제는 사라지네 태양을 따라 도는 저 별들처럼 난 돌고 돌고 돌고 그대를 향한 나의 이 어리석은 사랑해 사랑해 사랑해 머물지 못 하는 내 두 누누에 고인 눈물이 흐르네 나의 사랑ㅇㄴ 어떠나가쎄.",
         date: "2021.06.13"
     },
     {
-        id : 'minsoo6',
-        title : "학교 설비를 바꿔주세요.",
-        content : "Do you agree?",
+        id: 'minsoo6',
+        title: "학교 설비를 바꿔주세요.",
+        content: "나의 사랑이 멀어지네 나의 어제는 사라지네 태양을 따라 도는 저 별들처럼 난 돌고 돌고 돌고 그대를 향한 나의 이 어리석은 사랑해 사랑해 사랑해 머물지 못 하는 내 두 누누에 고인 눈물이 흐르네 나의 사랑ㅇㄴ 어떠나가쎄.",
         date: "2021.06.13"
     },
     {
-        id : 'minsoo7',
-        title : "학교 설비를 바꿔주세요.",
-        content : "Do you agree?",
+        id: 'minsoo7',
+        title: "학교 설비를 바꿔주세요.",
+        content: "나의 사랑이 멀어지네 나의 어제는 사라지네 태양을 따라 도는 저 별들처럼 난 돌고 돌고 돌고 그대를 향한 나의 이 어리석은 사랑해 사랑해 사랑해 머물지 못 하는 내 두 누누에 고인 눈물이 흐르네 나의 사랑ㅇㄴ 어떠나가쎄.",
         date: "2021.06.13"
     }
-  ]
-export default function PetitionPage() {
-  const [modalOn, setModalOn] = useState(false);
-  
+]
+export default function PetitionPage( ){
+    const [modalOn, setModalOn] = useState(false);
+    //need to be fixed
+    let [petitionsFromDB, setDB] = useState([]);
 
-  const onOpenModal = () => {
-    setModalOn(!modalOn);
-  }
-  function WriteModal(props) {
-    const { message } = props.message;
+    let count = 0;
+
+    useEffect(async() => {
+        await axios
+          .get("/api/products")
+          .then((res) => {setDB(res.data.products);})
+          .catch();
+      });
+
+
+    const onOpenModal = () => {
+        setModalOn(!modalOn);
+    }
+    function resetCount() {
+        count = 0;
+    }
+    function WriteModal(props) {
+        const { message } = props.message;
+
+        return (
+            <div className="petition-write-modal">
+                <div className="bg"></div>
+                <div className="modal-box">
+                    <input className="title" type="text" placeholder="제목"></input>
+                    <textarea className="content" type="text" placeholder="청원 내용" ></textarea>
+                    <button className="close-button" onClick={onOpenModal}>X</button>
+                </div>
+            </div>
+        );
+    };
 
     return (
-      <div className="petition-write-modal">
-        <div className="bg"></div>
-        <div className="modal-box">
-            <input className="title" type="text" placeholder="제목"></input>
-            <textarea className="content" type="text" placeholder="청원 내용" ></textarea>
-            <button className="close-button" onClick={onOpenModal}>X</button>
+        <div className="petition">
+            <div className="petitionlist">
+                {/* to show only 4 items per menu */}
+                <div className="left-list">
+                    {petitionsFromDB.map((petition) => {
+                        count++;
+                        if (count % 2 === 1) {
+                            
+                            return (
+                                <PetitionCard
+                                    key={petition.id}
+                                    id={petition.id}
+                                    title={petition.title}
+                                    date = {petition.date}
+                                    content = {petition.content}
+                                />
+                            );
+                        }
+                    })}
+                </div>
+                {resetCount()}
+                <div className="right-list">
+
+                    {petitionsFromDB.map((petition) => {
+                        count++;
+                        if (count % 2 === 0) {
+                            return (
+                                <PetitionCard
+                                    key={petition.id}
+                                    id={petition.id}
+                                    title={petition.title}
+                                    date={petition.date}
+                                    content = {petition.content}
+                                />
+                            );
+                        }
+                    })}
+                </div>
+            </div>
         </div>
-      </div>
     );
-  };
-
-  return (
-    <div className="petition">
-      <div className="input">
-        <button className="filter">필터</button>
-        <input className="filter_input" type="text" list='filter-example' placeholder="단어를 입력하세요."/>
-
-        <datalist id = "filter-example">
-          <option value="설비"></option>
-          <option value="물품"></option>
-          <option value="학업"></option>
-        </datalist>
-        <React.Fragment>
-          <button className="write" onClick={onOpenModal}>작성하기</button>
-          {modalOn ? <WriteModal message = "i am here"/> : ''}
-        </React.Fragment>
-
-      </div>
-      <div className="petitionlist">
-         {/* to show only 4 items per menu */}
-         
-        {petitions.map((petition) => {
-
-            return (
-              <ListedPetition
-                key={petition.id}
-                title={petition.title}
-                date={petition.date}
-
-              />);
-          
-        })}
-      </div>
-    </div>
-  );
 }

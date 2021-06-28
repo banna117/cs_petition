@@ -8,12 +8,7 @@ import "./styles.css";
 import axios from "axios";
 
 export default function App() {
-  useEffect(() => {
-    axios
-      .get("/api/products")
-      .then((res) => console.log(res.data))
-      .catch();
-  });
+
 
   return (
     <Router>
