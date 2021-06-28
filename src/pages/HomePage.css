@@ -5,10 +5,7 @@
     margin-top: 100px;
     height:100%;
     align-items: center;
-
     background-color:white;
-
-
 }
 
 .home_display .banner{
@@ -17,14 +14,11 @@
     margin-top: 100px;
     margin-bottom: 50px;
     border-radius: 10px;
-
     background-color: whitesmoke;
 }
 
 /*TopPetition.js*/
 .top3_format{
-    
-
     display:flex;
     flex-direction: column;
     width:280px;
@@ -45,6 +39,7 @@
 }
 
 .home_display .top3{
+
     display: inline-flex;
     flex-direction: row;
     height:300px;
@@ -52,6 +47,7 @@
     width:1000px;
     border:thin;
     border-color: tomato;
+    
 }
 .top3_format .top_id, .top3_format.top_content{
     font-size: medium;

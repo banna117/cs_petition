@@ -35,10 +35,31 @@
     border:none;
     border-radius: 10px;
 }
-
 .petition .filter_input{
     height:100%;
     margin-left:10px;
+    background-color: white;
+    border:whitesmoke;
+    border-width: 4px;
+    border-style: solid;
+    
+}
+.petition .filter_input:hover{
+    height:100%;
+    margin-left:10px;
+    background-color: purple;
+    border:pink;
+    border-width: 4px;
+    border-style: solid;
+    
+}
+.petition .filter_input:focus{
+    height:100%;
+    margin-left:10px;
+    background-color: red;
+    border:none;
+    border-style: hidden;
+    
 }
 
 
