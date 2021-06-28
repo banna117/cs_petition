@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./PetitionPage.css";
 import ListedPetition from "../components/ListedPetition";
 
+
 const petitions = [
     {
         id : 'minsoo1',
@@ -47,10 +48,25 @@ const petitions = [
     }
   ]
 export default function PetitionPage() {
-  
+  const [modalOn, setModalOn] = useState(false);
 
-  const [count, setCount] = useState(0);
+  const onOpenModal = () => {
+    setModalOn(!modalOn);
+  }
+  function WriteModal(props) {
+    const { message } = props.message;
 
+    return (
+      <div className="petition-write-modal">
+        <div className="bg"></div>
+        <div className="modal-box">
+          <input className="title" type="text" placeholder="제목"></input>
+          <textarea className="content" type="text" placeholder="청원 내용" ></textarea>
+        </div>
+        <button className="close-button" onClick={onOpenModal}>X</button>
+      </div>
+    );
+  };
 
   return (
     <div className="petition">
@@ -63,14 +79,18 @@ export default function PetitionPage() {
           <option value="물품"></option>
           <option value="학업"></option>
         </datalist>
+        <React.Fragment>
+          <button className="write" onClick={onOpenModal}>작성하기</button>
+          {console.log({modalOn})}
+          {modalOn ? <WriteModal message = "i am here"/> : ''}
+        </React.Fragment>
 
-        <button className="write">작성하기</button>
       </div>
       <div className="petitionlist">
          {/* to show only 4 items per menu */}
          
         {petitions.map((petition) => {
-          
+           console.log(petition);
             return (
               <ListedPetition
                 key={petition.id}

@@ -17,9 +17,8 @@
     display:flex;
     flex-direction: row;
 }
-.petition .write{
+.petition .input .write{
     margin-left: 300px;
-
     width:80px;
     height:30px;
     background-color: whitesmoke;
@@ -27,7 +26,11 @@
     border:none;
     border-radius: 10px;
 }
-.petition .filter{
+.petition .input .write-modal{
+    display:flex;
+    flex-direction: column;
+}
+.petition .input .filter{
     width:80px;
     height:30px;
     cursor: pointer;
@@ -35,7 +38,7 @@
     border:none;
     border-radius: 10px;
 }
-.petition .filter_input{
+.petition .input .filter_input{
     height:100%;
     margin-left:10px;
     background-color: white;
@@ -44,7 +47,7 @@
     border-style: solid;
     
 }
-.petition .filter_input:hover{
+.petition .input .filter_input:hover{
     height:100%;
     margin-left:10px;
     background-color: purple;
@@ -53,7 +56,7 @@
     border-style: solid;
     
 }
-.petition .filter_input:focus{
+.petition .input .filter_input:focus{
     height:100%;
     margin-left:10px;
     background-color: red;
@@ -61,7 +64,9 @@
     border-style: hidden;
     
 }
-
+.petition .input .filter-example{
+    background-color:pink;
+}
 
 .petition .petitionlist{
     margin-top: 10px;
@@ -74,8 +79,7 @@
  
 }
 
-/*temp need to be modified*/
- .list-petition{
+.list-petition{
     display:flex;
     flex-direction: column;
     font-size: x-large;
@@ -97,4 +101,62 @@
 .list-petition .lp-date{
     
     font-size:x-small;
+}
+
+/*modal*/
+.petition-write-modal{
+    position:fixed;
+    display:flex ;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    background-color:whitesmoke;
+}
+.petition-write-modal .bg{
+    background-color:rgba(0, 0,0,0.1);
+    width:100%;
+    height:100%;
+}
+.petition-write-modal .modal-box{
+    width: 500px;
+    height: 400px;
+    position:absolute;
+    background-color: whitesmoke;
+    padding:20px;
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+}
+.petition-write-modal .modal-box .title{
+    padding:2px;
+    width:100%;
+    border:none;
+    border-radius:5px;
+    font-size: large;
+    margin-bottom: 20px;
+
+}
+.petition-write-modal .modal-box .title:focus{
+background-color: violet;
+border:none;
+
+}
+.petition-write-modal .modal-box .content{
+    border:none;
+    width:100%;
+    height:100%;
+    word-break: break-all;
+    padding:3px;
+    resize: none;
+}
+.petition-write-modal .close-button{
+    position:absolute;
+    margin-top: 500px;
 }
