@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin:0px;
     padding:0px;
+
 }
 
 .__light-mode {
@@ -9,4 +10,6 @@
     --container-02: #F1F2F4;
     --text-01: #333333;
     --text-02: #aaaaaa;
+
+    background-color: var(--container-02);
   }

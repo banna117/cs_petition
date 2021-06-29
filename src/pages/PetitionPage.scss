@@ -1,90 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
 .petition{
-    margin-top:85px;
-
-    width:100%;
-    display: inline-flex;
-    flex-direction: column;
+    width:904px;
+    display: flex;
+    flex-flow: row wrap;
     background-color:var(--container-02);
     position:absolute;
-    align-items: center;
+    justify-content: space-between;
 
-    .input{
-        margin-top: 100px;
-        width:fit-content;
-        display:flex;
-        flex-direction: row;
-        .write{
-            margin-left: 300px;
-            width:80px;
-            height:30px;
-            background-color: whitesmoke;
-            cursor: pointer;
-            border:none;
-            border-radius: 10px;
-        }
-        .write-modal{
-            display:flex;
-            flex-direction: column;
-        }
-        .filter{
-            width:80px;
-            height:30px;
-            cursor: pointer;
-            background-color: whitesmoke;
-            border:none;
-            border-radius: 10px;
-        }
-        .filter_input{
-            height:100%;
-            margin-left:10px;
-            background-color: white;
-            border:whitesmoke;
-            border-width: 4px;
-            border-style: solid;
-            outline:none;
-            
-        }
-        .filter_input:focus{
-
-            background-color: red;
-        
-        }
-        .filter_input:hover{
-            background-color: purple;
-            border:pink;
-            border-width: 4px;
-            border-style: solid;
-            
-        }
-        .filter-example{
-            background-color:pink;
-        }
-    }
-    .petitionlist{
-        margin-top: 10px;
-        display: flex;
-        flex-direction:row;
-        justify-content: center;
-        margin-bottom: 50px;
-        
-        border:thin;
-
-        height:fit-content;
-        width:fit-content;
-        .left-list{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-right:24px;
-        }
-        .right-list{
-            display:flex;
-            flex-direction: column;
-        }
-     
-    }
+    margin-left: 407px;
+    margin-top:40px;
 
 }
 

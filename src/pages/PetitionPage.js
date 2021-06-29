@@ -54,7 +54,8 @@ export default function PetitionPage( ){
     let [petitionsFromDB, setDB] = useState([]);
 
     let count = 0;
-
+    
+    //need to be fixed
     useEffect(async() => {
         await axios
           .get("/api/products")
@@ -69,9 +70,8 @@ export default function PetitionPage( ){
     function resetCount() {
         count = 0;
     }
-    function WriteModal(props) {
-        const { message } = props.message;
-
+    function WriteModal() {
+        
         return (
             <div className="petition-write-modal">
                 <div className="bg"></div>
@@ -86,44 +86,20 @@ export default function PetitionPage( ){
 
     return (
         <div className="petition">
-            <div className="petitionlist">
-                {/* to show only 4 items per menu */}
-                <div className="left-list">
-                    {petitionsFromDB.map((petition) => {
-                        count++;
-                        if (count % 2 === 1) {
-                            
-                            return (
-                                <PetitionCard
-                                    key={petition.id}
-                                    id={petition.id}
-                                    title={petition.title}
-                                    date = {petition.date}
-                                    content = {petition.content}
-                                />
-                            );
-                        }
-                    })}
-                </div>
-                {resetCount()}
-                <div className="right-list">
 
-                    {petitionsFromDB.map((petition) => {
-                        count++;
-                        if (count % 2 === 0) {
-                            return (
-                                <PetitionCard
-                                    key={petition.id}
-                                    id={petition.id}
-                                    title={petition.title}
-                                    date={petition.date}
-                                    content = {petition.content}
-                                />
-                            );
-                        }
-                    })}
-                </div>
-            </div>
+            {petitionsFromDB.map((petition) => {
+                return (
+                    <PetitionCard
+                        key={petition.id}
+                        id={petition.id}
+                        title={petition.title}
+                        date={petition.date}
+                        content={petition.content}
+                    />
+                );
+
+            })}
+
         </div>
     );
 }

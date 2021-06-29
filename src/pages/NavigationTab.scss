@@ -1,71 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
 
-.tab{
-    display:flex;
-    height: 60px; /*tab height */
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    background-color:var(--container-01);
-    position:fixed;
-    z-index: 1;
+    .tab{
+        display:flex;
+        flex-direction: column;
+        height: fit-content; /*tab height */
+        width: 320px;
+        flex-wrap: wrap;
+        // justify-content: center;
+        align-items: center;
+        background-color:var(--container-01);
+        padding:30px;
+        top:40px;
+        left:58px;
+        position:fixed;
+        border-radius: 16px;
 
-
-
-    .logo-spot{
-    font-size:small;
-    margin-right: 10px;
-    }
-
-    .links{
-    align-items: center;
-    display:flex;
-    width:80%;
-    justify-content: center;
-    flex-direction: row;
-
-        .tab-home{
-            width:100px;
-            height:50px;
-            font-size: large;
-            font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-            cursor:pointer;
-        
-            margin-right: 20px;
-            background-color:whitesmoke;   
-            border:rgb(243, 255, 249);
-            border-radius: 10px;
-        }
-        .tab-petition{
-            width:100px;
-            height:50px;
-            font-size: large;
-            font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-            cursor:pointer;
-        
-            margin-right: 20px;
-            background-color:whitesmoke;   
-            border:rgb(243, 255, 249);
-            border-radius: 10px;
+        .logo-spot{
+            font-size:16px;
         
         }
-        .tab-dm{
-            width:150px;
-            height:50px;
-            font-size: large;
-            font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-            cursor:pointer;
+        .search{
+            outline:none;
+            .search-bar{
+                margin: 40px 0px;
+                width:260px;
+                height:46px;
+                padding: 0px 20px;
+                border-radius: 23px;
+                outline: none;
+                border: 1px solid var(--container-02);
+                
+            }
+            .search-button{
+                height:23px;
+                width:23px;
+                top:103.5px;
+                right:54px;
+                outline: none;
+                background-color: var(--container-01);
+                border:none;
+                position:absolute;
+                background-image: url("../assets/svg/magnifyingGlass.svg");
+                background-repeat: no-repeat;
+                background-size: 23px 23px;
+                background-position-x: center;
+                background-position-y: center;
+
+            }
+        }
+
+        .filter-buttons{
+            width:260px;
+            height:190px;
+            display: flex;
+            flex-flow: row wrap;
+
+            justify-content: space-between;
+            align-content: space-between;
+
+            .processing1,.processing2,.answered,.expired{
+                width:125px;
+                height:90px;
+                border-radius: 8px;
+
+                border:none;
+                background-color: var(--container-02);
+                &:focus{
+                    background-color: royalblue;
+                }
+            }
+        }
+        .filter-categories{
+            width:257px;
+            height:67px;
+            display: flex;
+            flex-flow: column wrap;
+            justify-content:space-between;
+            align-content: space-between;
+ 
+            margin: 40px 0px;
+
+            .academy,
+            .facility,
+            .future,
+            .what, .welfare ,.administration, .etc{
+                width:59px;
+                height:30px;
+                
+                border-style:solid;
+                border-color:var(--container-02);
+                border-radius:14px;
+                border-width:1px;
+                
+                justify-content: center;
+                align-items: center;
+                font-size:14px;
+                line-height: 14px;
+                
+                font-style: normal;
+                
+                background-color: var(--container-01);
+            }
+        
+        }
+        .petition-write{
+            width:260px;
+            height: 180px;
+            align-items:center;
+            justify-content: center;
+
+            font-size: 24px;
             
-            background-color:whitesmoke;   
-            border:rgb(243, 255, 249);
-            border-radius: 10px;
+            border:none;
+            border-radius:12px;
+            background-color: blue;
+            .text{
+                color:var(--container-01);
+            }
         }
     }
-    h5{
-        font-size: medium;
-        display:block;
-    }
-}
-
-
-
-
