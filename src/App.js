@@ -14,15 +14,10 @@ export default function App() {
     <Router>
       <NavigationTab />
       <Switch>
-        <Route path="/home">
-          <HomePage />
-        </Route>
-        <Route path="/petition">
+        <Route path="/">
           <PetitionPage />
         </Route>
-        <Route path="/dm">
-          <DirectMessagePage />
-        </Route>
+
       </Switch>
     </Router>
   );

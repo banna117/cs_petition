@@ -6,15 +6,16 @@
     align-items:center;
     padding:24px 30px ;
     margin-bottom:24px;
-
+    outline: none;
     width:440px;
     height: 342px;
-
+    cursor:pointer;
+        border:none;
     border-radius: 16px;
  
     .lp-title{
         font-family: 'Nanum Gothic', sans-serif;
-        font-style:italic;
+        font-style:normal;
         color:var(--text-01);
         font-size:26px;
     
@@ -54,12 +55,13 @@
         display:flex;
         flex-direction: row;
         margin-bottom: 20px;
-        
+        align-items: center;
 
         .agreements{
             width:fit-content;
             height:28px;
             padding:8px 16px;
+            
 
             border-style:solid;
             border-color:var(--container-02);
@@ -78,6 +80,7 @@
             width:fit-content;
             height:28px;
             padding:8px 16px;
+            margin-right:3px;
 
             border-style:solid;
             border-color:var(--container-02);

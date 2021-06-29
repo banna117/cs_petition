@@ -20,27 +20,33 @@
         
         }
         .search{
-            outline:none;
+            margin: 40px 0px;
+            width:260px;
+            height:46px;
+            padding: 0px 20px;
+
+            border-radius: 23px;
+
+            outline: none;
+            border: 1px solid var(--container-02);
+            flex-direction: row;
+            align-items:flex-end;
+            justify-content: center;
+
             .search-bar{
-                margin: 40px 0px;
-                width:260px;
-                height:46px;
-                padding: 0px 20px;
-                border-radius: 23px;
-                outline: none;
-                border: 1px solid var(--container-02);
-                
+                outline:none;
+                border:none;
+                font-size: 16px;
             }
             .search-button{
                 height:23px;
                 width:23px;
-                top:103.5px;
-                right:54px;
                 outline: none;
                 background-color: var(--container-01);
                 border:none;
                 position:absolute;
-                background-image: url("../assets/svg/magnifyingGlass.svg");
+
+                background-image: url("../assets/icons/magnifyingGlass.svg");
                 background-repeat: no-repeat;
                 background-size: 23px 23px;
                 background-position-x: center;
@@ -65,18 +71,21 @@
 
                 border:none;
                 background-color: var(--container-02);
-                &:focus{
-                    background-color: royalblue;
-                }
+
             }
+            .buttonSelected{
+                background-color: var(--blue-02);
+            }
+
         }
         .filter-categories{
             width:257px;
             height:67px;
             display: flex;
-            flex-flow: column wrap;
-            justify-content:space-between;
-            align-content: space-between;
+            flex-flow: row wrap;
+            justify-content:flex-start;
+            // justify-self: start;
+            align-items: space-between;
  
             margin: 40px 0px;
 
@@ -86,7 +95,7 @@
             .what, .welfare ,.administration, .etc{
                 width:59px;
                 height:30px;
-                
+                margin-right: 5px;
                 border-style:solid;
                 border-color:var(--container-02);
                 border-radius:14px;
@@ -100,6 +109,10 @@
                 font-style: normal;
                 
                 background-color: var(--container-01);
+
+            }
+            .buttonSelected{
+                background-color: var(--blue-02);
             }
         
         }
@@ -110,10 +123,10 @@
             justify-content: center;
 
             font-size: 24px;
-            
+            cursor: pointer;
             border:none;
             border-radius:12px;
-            background-color: blue;
+            background-color: var(--blue-02);
             .text{
                 color:var(--container-01);
             }

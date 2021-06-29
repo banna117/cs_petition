@@ -49,11 +49,9 @@ const petitions = [
     }
 ]
 export default function PetitionPage( ){
-    const [modalOn, setModalOn] = useState(false);
+
     //need to be fixed
     let [petitionsFromDB, setDB] = useState([]);
-
-    let count = 0;
     
     //need to be fixed
     useEffect(async() => {
@@ -64,30 +62,11 @@ export default function PetitionPage( ){
       });
 
 
-    const onOpenModal = () => {
-        setModalOn(!modalOn);
-    }
-    function resetCount() {
-        count = 0;
-    }
-    function WriteModal() {
-        
-        return (
-            <div className="petition-write-modal">
-                <div className="bg"></div>
-                <div className="modal-box">
-                    <input className="title" type="text" placeholder="제목"></input>
-                    <textarea className="content" type="text" placeholder="청원 내용" ></textarea>
-                    <button className="close-button" onClick={onOpenModal}>X</button>
-                </div>
-            </div>
-        );
-    };
 
     return (
         <div className="petition">
-
-            {petitionsFromDB.map((petition) => {
+            {/* need to be fixed */}
+            {petitions.map((petition) => {
                 return (
                     <PetitionCard
                         key={petition.id}
