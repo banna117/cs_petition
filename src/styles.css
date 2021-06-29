@@ -10,6 +10,10 @@
     --container-02: #F1F2F4;
     --text-01: #333333;
     --text-02: #aaaaaa;
+    --blue-01: #5FBEEB;
+    --blue-02: #1487C8;
+    --blue-03: #004187;
+    --blue-04: #004191;
 
     background-color: var(--container-02);
   }
