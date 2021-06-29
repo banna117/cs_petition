@@ -29,7 +29,7 @@
         overflow:hidden;
         text-overflow:ellipsis;
     }
-    .lp-content{
+    .lp-description{
         font-family: 'Nanum Gothic', sans-serif;
         font-style:normal;
         color:var(--text-02);
@@ -56,41 +56,5 @@
         flex-direction: row;
         margin-bottom: 20px;
         align-items: center;
-
-        .agreements{
-            width:fit-content;
-            height:28px;
-            padding:8px 16px;
-            
-
-            border-style:solid;
-            border-color:var(--container-02);
-            border-radius:14px;
-            border-width:1px;
-            
-            font-size:12px;
-            line-height: 12px;
-            font-style: normal;
-            color:var(--text-02);
-
-            margin-right:9px;
-
-        }
-        .category{
-            width:fit-content;
-            height:28px;
-            padding:8px 16px;
-            margin-right:3px;
-
-            border-style:solid;
-            border-color:var(--container-02);
-            border-radius:14px;
-            border-width:1px;
-            
-            font-size:12px;
-            line-height: 12px;
-            font-style: normal;
-            color:var(--text-02);
-        }
     }
 }

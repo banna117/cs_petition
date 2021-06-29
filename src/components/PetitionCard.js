@@ -1,20 +1,20 @@
 import React from "react";
 import "./PetitionCard.scss";
 import Dot from "../assets/icons/dot";
+import Category from "./Category";
 
-export default function PetitionCard(props) {
-    const { id, title, date, content } = props;
+export default function PetitionCard({ petition: { pid, title, catId, date, description } }) {
     return (
-    <button key = {id} className="list-petition">
-        {/*  data processing! */}
-        <div className="lp-category">
-            <p className="category">분류</p>
-            <p className="agreements">1000000명</p>
-        </div>
-        <div className="lp-title">{title}</div>
-        <div className="lp-content">{content}</div>
-        <div className="lp-id-date">
-            {id} <Dot/> {date}
-        </div>
-    </button>);
+        <button key={pid} className="list-petition">
+            {/*  data processing! */}
+            <div className="lp-category">
+                <Category name={catId} />
+                <Category name="1,000명" />
+            </div>
+            <div className="lp-title">{title}</div>
+            <div className="lp-description">{description}</div>
+            <div className="lp-id-date">
+                {pid} <Dot /> {date}
+            </div>
+        </button>);
 }
