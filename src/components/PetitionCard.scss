@@ -10,7 +10,7 @@
     width:440px;
     height: 342px;
     cursor:pointer;
-        border:none;
+    border:none;
     border-radius: 16px;
  
     .lp-title{
@@ -36,7 +36,6 @@
         font-size:14px;
         line-height:19.6px;
         height:100px;
-
         overflow:hidden;
         text-overflow:ellipsis;
 
@@ -47,6 +46,8 @@
 
     .lp-id-date{
         font-size:14px;
+        flex-direction: row;
+        align-items: center;
         color:var(--text-02);
 
     }

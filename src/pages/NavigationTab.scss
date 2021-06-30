@@ -1,134 +1,140 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
 
-    .tab{
-        display:flex;
-        flex-direction: column;
-        height: fit-content; /*tab height */
-        width: 320px;
-        flex-wrap: wrap;
-        // justify-content: center;
-        align-items: center;
-        background-color:var(--container-01);
-        padding:30px;
-        top:40px;
-        left:58px;
-        position:fixed;
-        border-radius: 16px;
+.tab{
+    display:flex;
+    flex-direction: column;
+    height: fit-content; /*tab height */
+    width: 320px;
+    flex-wrap: wrap;
+    // justify-content: center;
+    align-items: center;
+    background-color:var(--container-01);
+    padding:30px;
+    top:40px;
+    left:58px;
+    position:fixed;
+    border-radius: 16px;
+    z-index:1;
 
-        .logo-spot{
-            font-size:16px;
-        
-        }
-        .search{
-            margin: 40px 0px;
-            width:260px;
-            height:46px;
-            padding: 0px 20px;
+    .logo-spot{
+        font-size:16px;
+    
+    }
+    .search{
+        margin: 40px 0px;
+        width:260px;
+        height:46px;
+        padding: 0px 20px;
 
-            border-radius: 23px;
+        border-radius: 23px;
+        display: flex;
 
-            outline: none;
-            border: 1px solid var(--container-02);
-            flex-direction: row;
-            align-items:flex-end;
-            justify-content: center;
+        outline: none;
+        border: 1px solid var(--container-02);
+        flex-direction: row;
+        align-items:center;
+        justify-content: space-between;
 
-            .search-bar{
-                outline:none;
-                border:none;
-                font-size: 16px;
-            }
-            .search-button{
-                height:23px;
-                width:23px;
-                outline: none;
-                background-color: var(--container-01);
-                border:none;
-                position:absolute;
-
-                background-image: url("../assets/icons/magnifyingGlass.svg");
-                background-repeat: no-repeat;
-                background-size: 23px 23px;
-                background-position-x: center;
-                background-position-y: center;
-
-            }
-        }
-
-        .filter-buttons{
-            width:260px;
-            height:190px;
-            display: flex;
-            flex-flow: row wrap;
-
-            justify-content: space-between;
-            align-content: space-between;
-
-            .processing1,.processing2,.answered,.expired{
-                width:125px;
-                height:90px;
-                border-radius: 8px;
-
-                border:none;
-                background-color: var(--container-02);
-
-            }
-            .buttonSelected{
-                background-color: var(--blue-02);
-            }
-
-        }
-        .filter-categories{
-            width:257px;
-            height:67px;
-            display: flex;
-            flex-flow: row wrap;
-            justify-content:flex-start;
-            // justify-self: start;
-            align-items: space-between;
- 
-            margin: 40px 0px;
-
-            .academy,
-            .facility,
-            .future,
-            .what, .welfare ,.administration, .etc{
-                width:59px;
-                height:30px;
-                margin-right: 5px;
-                border-style:solid;
-                border-color:var(--container-02);
-                border-radius:14px;
-                border-width:1px;
-                
-                justify-content: center;
-                align-items: center;
-                font-size:14px;
-                line-height: 14px;
-                
-                font-style: normal;
-                
-                background-color: var(--container-01);
-
-            }
-            .buttonSelected{
-                background-color: var(--blue-02);
-            }
-        
-        }
-        .petition-write{
-            width:260px;
-            height: 180px;
-            align-items:center;
-            justify-content: center;
-
-            font-size: 24px;
-            cursor: pointer;
+        .search-bar{
+            outline:none;
             border:none;
-            border-radius:12px;
-            background-color: var(--blue-02);
-            .text{
-                color:var(--container-01);
-            }
+            font-size: 16px;
+        }
+        .search-button{
+            height:23px;
+            width:23px;
+            outline: none;
+            background-color: var(--container-01);
+            border:none;
+            cursor: pointer;
+
+            background-image: url("../assets/icons/magnifyingGlass.svg");
+            background-repeat: no-repeat;
+            background-size: 23px 23px;
+            background-position-x: center;
+            background-position-y: center;
+
         }
     }
+
+    .filter-buttons{
+        width:260px;
+        height:190px;
+        display: flex;
+        flex-flow: row wrap;
+
+        justify-content: space-between;
+        align-content: space-between;
+
+        .processing1,.processing2,.answered,.expired{
+            width:125px;
+            height:90px;
+            border-radius: 8px;
+
+            border:none;
+            color:var(--text-01);
+            background-color: var(--container-02);
+
+        }
+        .buttonSelected{
+            background-color: var(--blue-02);
+            color:var(--text--on-dark-01);
+        }
+
+    }
+    .filter-categories{
+        width:257px;
+        height:67px;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content:flex-start;
+        // justify-self: start;
+        align-items: space-between;
+
+        margin: 40px 0px;
+
+        .academy,
+        .facility,
+        .future,
+         .welfare ,.administration, .etc{
+            width:59px;
+            height:30px;
+            margin-right: 5px;
+            border-style:solid;
+            border-color:var(--container-02);
+            border-radius:14px;
+            border-width:1px;
+            
+            justify-content: center;
+            align-items: center;
+            font-size:14px;
+            line-height: 14px;
+            
+            font-style: normal;
+            color:var(--text-02);
+            background-color: var(--container-01);
+
+        }
+        .buttonSelected{
+            background-color: var(--blue-02);
+            color:var(--text--on-dark-01);
+
+        }
+    
+    }
+    .petition-write{
+        width:260px;
+        height: 180px;
+        align-items:center;
+        justify-content: center;
+
+        font-size: 24px;
+        cursor: pointer;
+        border:none;
+        border-radius:12px;
+        background-color: var(--blue-02);
+        .text{
+            color:var(--container-01);
+        }
+    }
+}

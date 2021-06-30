@@ -1,4 +1,201 @@
-.writing-modal{
-    position:absolute;
-    z-index:10;
+
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap');
+
+.writing-bg{
+    position:fixed;
+    top:0; left:0; right:0; bottom:0;
+    background-color: #E5E5E5;
+    .writing-modal{
+        position:absolute;
+        top:40px;
+        left:58px;
+        display: flex;
+        flex-direction: row;
+
+
+        .writing-navigation{
+            display: flex;
+            flex-direction: column;
+            padding:30px;
+            width:320px;
+            margin-right: 32px;
+            align-items: center;
+            background-color: var(--container-01);
+            height:fit-content;
+            border-radius: 16px;
+            .logo{
+                margin-bottom: 40px;
+                font-family: 'Nanum Gothic', sans-serif;
+                font-weight: 400;
+                font-size: 16px;
+            }
+            .write-petition{
+                &:disabled{
+                width:100%;
+                height: 100px;
+                margin-bottom: 20px;
+                border:none;
+                border-radius: 12px;
+                font-family: 'Nanum Gothic', sans-serif;
+                font-size: 24px;
+                font-weight: 700;
+
+                background-color: var(--blue-02);
+                opacity: 50%;
+
+                color: #ffffff;
+                cursor:not-allowed;
+                }
+                &:enabled{
+                    
+                    width:100%;
+                    height: 100px;
+                    margin-bottom: 20px;
+                    border:none;
+                    border-radius: 12px;
+                    font-family: 'Nanum Gothic', sans-serif;
+                    font-size: 24px;
+                    font-weight: 700;
+        
+                    background-color: var(--blue-02);
+                    opacity: 50%;
+        
+                    color: #ffffff;
+                    opacity:100%;
+                    cursor:pointer;
+                }
+
+            }
+            .cancel-petition{
+                width:100%;
+                height: 100px;
+                border:none;
+                border-radius: 12px;
+                font-family: 'Nanum Gothic', sans-serif;
+                font-weight: 700;
+                font-size: 24px;
+                background-color: var(--container-02);
+
+                color:var(--text-02);
+                cursor:pointer;
+
+            }
+
+        }
+        .writing-main{
+            width:904px;
+            display: flex;
+            flex-direction: column;
+            padding:40px;
+            background-color: var(--container-01);
+            outline: none;
+            border-radius: 16px;
+            .main-title{
+                border: 1px solid var(--container-02);
+                border-radius: 8px;
+                padding: 16px 20px;
+                width:100%;
+                
+                .title-text{
+                    font-size: 18px;
+                    font-style: normal;
+                    margin-bottom: 20px;
+
+                    font-family: 'Nanum Gothic', sans-serif;
+                    font-weight: 400;
+                    color:var(--text-02);
+                }
+                .title-input{
+                    font-size:26px;
+                    line-height: 33.8px;
+                    outline:none;
+                    border:none;
+                    width:100%;
+                    font-family: 'Nanum Gothic', sans-serif;
+                    font-weight: 400;
+                    color:var(--text-01);
+                    &::placeholder{
+                        color:var(--text-02);
+                    }
+                }
+            }
+            .main-category{
+                width:100%;
+                margin: 40px 0px;
+                border: 1px solid var(--container-02);
+                border-radius: 8px;
+                padding: 16px 20px;
+                .category-text{
+                    font-size: 18px;
+                    font-style: normal;
+                    margin-bottom: 20px;
+                    color:var(--text-02);
+                    margin-bottom: 20px;
+                    font-family: 'Nanum Gothic', sans-serif;
+                    font-weight: 400;
+
+                }
+                .academy,
+                .facility,
+                .future,
+                .welfare ,.administration, .etc{
+                    width:59px;
+                    height:30px;
+                    margin-right: 5px;
+                    border-style:solid;
+                    border-color:var(--container-02);
+                    border-radius:14px;
+                    border-width:1px;
+                    
+                    justify-content: center;
+                    align-items: center;
+                    font-size:14px;
+                    line-height: 14px;
+                    
+                    font-style: normal;
+                    font-family: 'Nanum Gothic', sans-serif;
+                    font-weight: 400;
+                    background-color: var(--container-01);
+
+                    color:var(--text-02);
+        
+                }
+                .buttonSelected{
+                    background-color: var(--blue-02);
+                    color:var(#ffffff);
+                }
+            }
+            .main-content{
+                border: 1px solid var(--container-02);
+                border-radius: 8px;
+                padding: 16px 20px;
+                width:100%;
+
+                .content-text{
+                    font-size: 18px;
+                    font-style: normal;
+                    font-family: 'Nanum Gothic', sans-serif;
+                    margin-bottom: 20px;
+                    color:var(--text-02);
+                    width:100%;
+                }
+                .content-input{
+                    width:100%;
+                    height: 420px;
+                    font-size: 20px;
+                    line-height: 28px;
+                    font-style: normal;
+                    font-family: 'Nanum Gothic', sans-serif;
+                    color:var(--text-01);
+                    resize: none;
+                    outline: none;
+                    border:none;
+                    &::placeholder{
+                        color:var(--text-02);
+                    }
+                }
+            }
+        }
+
+    }
 }
