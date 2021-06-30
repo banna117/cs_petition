@@ -8,8 +8,10 @@
 .__light-mode {
     --container-01: #ffffff;
     --container-02: #F1F2F4;
+    --container-03: #DEDEDE;
     --text-01: #333333;
     --text-02: #aaaaaa;
+    --text--on-dark-01: #FFFFFF;
     --blue-01: #5FBEEB;
     --blue-02: #1487C8;
     --blue-03: #004187;
