@@ -1,0 +1,36 @@
+.custom-editor {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: flex-start;
+  border: 1px solid var(--container-03);
+  border-radius: 12px;
+  padding: 20px;
+
+  textarea {
+    flex: 1;
+    height: 44px;
+    outline: none;
+    font-size: 16px;
+    line-height: 1.42;
+    border: none;
+    resize: none;
+
+    &::placeholder {
+      color: var(--text-02);
+    }
+  }
+
+}
+
+button {
+  width: 80px;
+  height: 40px;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--blue-02);
+  color: var(--text--on-dark-01);
+  font-size: 16px;
+}

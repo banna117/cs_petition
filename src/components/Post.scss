@@ -1,0 +1,80 @@
+.post {
+  position: absolute;
+  width: 100%;
+  padding: 40px;
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+
+  background-color: var(--container-01);
+
+  .title-box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+
+    .category-list {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
+
+    .title {
+      font-size: 36px;
+      color: var(--text-01);
+    }
+  }
+
+  .sub-title {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    font-size: 14px;
+    align-items: center;
+    color: var(--text-02);
+  }
+
+  .description {
+    font-size: 20px;
+    color: var(--text-01);
+  }
+
+  .agree-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding: 30px;
+    
+    border-radius: 12px;
+    border: 1px solid var(--container-03);
+
+    p {
+      font-size: 28px;
+      color: var(--blue-02);
+    }
+
+    button {
+      width: 260px;
+      height: 70px;
+      border: none;
+      border-radius: 12px;
+      background-color: var(--blue-02);
+
+      font-size: 24px;
+      color: var(--text--on-dark-01);
+    }
+  }
+
+  .comment-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}

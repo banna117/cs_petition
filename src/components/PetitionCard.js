@@ -3,9 +3,9 @@ import "./PetitionCard.scss";
 import Dot from "../assets/icons/dot";
 import Category from "./Category";
 
-export default function PetitionCard({ petition: { pid, title, catId, date, description } }) {
+export default function PetitionCard({ petition: { pid, title, catId, date, description }, setSelectedPost }) {
     return (
-        <button key={pid} className="list-petition">
+        <button key={pid} className="list-petition" onClick={() => setSelectedPost(pid)}>
             {/*  data processing! */}
             <div className="lp-category">
                 <Category name={catId} />
