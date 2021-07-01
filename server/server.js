@@ -18,6 +18,13 @@ app.get("/test", (req, res) => {
   res.send("잘 돌아가고 있느냐");
 })
 
+app.get("/comments", (req, res) => {
+  db.query("SELECT * FROM comments", (err, data) => {
+    if (!err) res.send(data);
+    else res.send(err);
+  });
+});
+
 
 
 app.listen(PORT, () => {

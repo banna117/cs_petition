@@ -5,9 +5,10 @@ import Dot from "../assets/icons/dot";
 import Comment from "./Comment";
 import CustomEditor from "./CustomEditor";
 
-export default function Post({ petitionInfo: { pid, uid, title, catId, description, date, state }, closePost }) {
+export default function Post({ petitionInfo: { pid, uid, title, catId, description, date, state }, commentInfo , closePost }) {
   return (
     <div className="post" onClick={() => closePost()}>
+
       <div className="title-box">
         <div className="category-list">
           <Category name={catId} />
@@ -24,8 +25,12 @@ export default function Post({ petitionInfo: { pid, uid, title, catId, descripti
       </div>
       <div className="comment-box">
         <CustomEditor />
-        <Comment />
-        <Comment />
+        {commentInfo.map((comment)=>
+
+          <Comment key={comment.comId} commentInfo={comment}/>
+        
+          )
+        }
       </div>
     </div>
   );

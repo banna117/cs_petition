@@ -3,11 +3,11 @@ import "./NavigationTab.scss";
 import WritingModal from "../components/WritingModal";
 
 
-export default function NavigationTab() {
+export default function NavigationTab(props) {
 	let [filterButtonState, setFilterButtonState] = useState(0);
-	let [filterCategoryState, setFilterCategoryState] = useState(-1);
-
 	let [writingModalState,setWritingModalState] = useState(false) ;
+
+	const { setFilterCategoryState:setFilterCategoryState, filterCategoryState:filterCategoryState } = props;
 
 	const closeWritingModal = () => {
 		setWritingModalState(false);

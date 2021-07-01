@@ -41,7 +41,7 @@ export default function WritingModal(props) {
                 <div className="writing-main">
                     <div className="main-title">
                         <p className="title-text">제목({titleLength}/100)</p>
-                        <input className="title-input" placeholder="내용을 쉽게 파악할 수 있도록 제목을 적어주세요." maxLength="100" id="title-input" onKeyUp={() => setTitleLength(document.getElementById("title-input").value.length)}></input>
+                        <input className="title-input" placeholder="내용을 쉽게 파악할 수 있도록 제목을 적어주세요." maxLength="100" id="title-input" onChange={(e) => setTitleLength(e.target.value.length)}></input>
                     </div>
                     <div className="main-category">
                         <p className="category-text">카테고리</p>
@@ -56,7 +56,7 @@ export default function WritingModal(props) {
                     </div>
                     <div className="main-content">
                         <h3 className="content-text">내용({contentLength}/3000)</h3>
-                        <textarea className="content-input" maxLength="3000" placeholder="청원 내용을 상세히 적어주세요." id="content-input" onKeyUp={() => setContentLength(document.getElementById("content-input").value.length)}></textarea>
+                        <textarea className="content-input" maxLength="3000" placeholder="청원 내용을 상세히 적어주세요." id="content-input" onChange={(e) => setContentLength(e.target.value.length)}></textarea>
                     </div>
                 </div>
             </div>

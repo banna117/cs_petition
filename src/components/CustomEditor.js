@@ -9,8 +9,9 @@ export default function CustomEditor() {
       <textarea
         placeholder="댓글 입력..."
         onChange={(e) => setContent(e.target.value)}
+        defaultValue={content}
       >
-        {content}
+        
       </textarea>
       <button onClick={() => console.log(content)}>확인</button>
     </div>

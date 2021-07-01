@@ -32,13 +32,15 @@
     .lp-description{
         font-family: 'Nanum Gothic', sans-serif;
         font-style:normal;
+        font-weight: 400;
         color:var(--text-02);
         font-size:14px;
-        line-height:19.6px;
+        line-height:140%;
         height:100px;
         overflow:hidden;
         text-overflow:ellipsis;
-
+        text-align: center;
+   
         margin-bottom:30px;
 
 
