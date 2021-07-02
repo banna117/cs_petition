@@ -18,7 +18,13 @@ app.get("/petitions", (req, res) => {
     else res.send(err);
   });
 });
-
+//getting petitions size from DB
+app.get("/petitions/size", (req, res) => {
+  db.query("SELECT COUNT(*) as size FROM petitions", (err, data) => {
+    if (!err) res.send(data);
+    else res.send(err);
+  });
+});
 //getting comments from DB
 app.get("/comments", (req, res) => {
   db.query("SELECT * FROM comments", (err, data) => {
@@ -32,7 +38,7 @@ app.get("/comments", (req, res) => {
 app.post("/test", (req, res) => {
   // res.send(req.body);
   console.log(req.body);
-  const testQuery = "INSERT INTO petitions VALUES (14, 4,\'" + req.body.latestPost.title + "\',\'" + req.body.latestPost.category + "\',\'" + req.body.latestPost.content + "\',DATE_FORMAT(NOW(),'%Y.%m.%d'),0)"
+  const testQuery = "INSERT INTO petitions VALUES ("+req.body.latestPost.pid+","+req.body.latestPost.uid+",\'" + req.body.latestPost.title + "\',\'" + req.body.latestPost.catId + "\',\'" + req.body.latestPost.description + "\',DATE_FORMAT(NOW(),'%Y.%m.%d'),0)"
   console.log(testQuery);
   db.query(testQuery, (err, data) => {
     if (!err) res.send(data);

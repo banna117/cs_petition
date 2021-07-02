@@ -24,11 +24,11 @@ export default function Post({ petitionInfo: { pid, uid, title, catId, descripti
         <button>청원 동의하기</button>
       </div>
       <div className="comment-box">
+        {console.log(commentInfo)}
         <CustomEditor />
         {commentInfo.map((comment)=>
-
           <Comment key={comment.comId} comment={comment}/>
-        
+          
           )
         }
       </div>

@@ -2,7 +2,7 @@ import React from "react";
 import "./Comment.scss";
 import Dot from "../assets/icons/dot";
 
-export default function Comment({commentInfo:{pid, comId, uid, content, date}}) {
+export default function Comment({comment:{pid, comId, uid, content, date}}) {
  
   return (
     

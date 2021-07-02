@@ -8,7 +8,7 @@ export default function WritingModal(props) {
     let [titleLength, setTitleLength] = useState(0);
     let [contentLength, setContentLength] = useState(0);
 
-    const { closeWritingModal } = props;
+    const { closeWritingModal, petitionsSize, setPetitions, petitions, petitionCat, setPetitionCat} = props;
  
     useEffect(()=>{
         const btn = document.getElementById("write-complete-btn");
@@ -21,20 +21,34 @@ export default function WritingModal(props) {
 
     const writeComplete = () => {
         const title = document.getElementById('title-input').value;
-        const category = filterCategoryState;
-        const content = document.getElementById("content-input").value;
+        const catId = filterCategoryState;
+        const description = document.getElementById("content-input").value;
+        const uid = 1;
+        const pid = petitionsSize;
+        const post = {pid, uid, title, catId, description};
 
-        const post = {title, category, content};
-        const temp = [];
+
         console.log(post);
-       
+       let today=new Date();
+       const state=0;
+       const date=today.toLocaleDateString();
+
         axios.post("http://localhost:4000/test",{latestPost: post})
-        .then((res)=> {console.log(res);
-        temp.push(res.data)})
+        .then((res)=> {
+            console.log(res);
+        })
         .catch((err) => console.log(err));
         
-            console.log(temp);
-        //write the result to the server and show it on react
+
+        //send the result to the react client
+        const newPetition = {pid, uid, title, catId, description, date, state };
+        const new2Petitions = petitions;
+        new2Petitions.push(newPetition)
+
+        setPetitions(new2Petitions);
+        let temp = petitionCat;
+        temp[newPetition.catId].push(newPetition);
+		setPetitionCat(temp);
 
         closeWritingModal();
     }

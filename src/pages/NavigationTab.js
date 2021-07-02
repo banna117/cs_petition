@@ -1,25 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./NavigationTab.scss";
-import WritingModal from "../components/WritingModal";
+
 
 
 export default function NavigationTab(props) {
 	let [filterButtonState, setFilterButtonState] = useState(0);
-	let [writingModalState,setWritingModalState] = useState(false) ;
 
-	const { setFilterCategoryState, filterCategoryState } = props;
 
-	const closeWritingModal = () => {
-		setWritingModalState(false);
-	};
-	const alterWritingModal = () => {
-		setWritingModalState(!writingModalState);
-	}
 
-	useEffect(() => {
-		
-		console.log(writingModalState);
-	})
+	let { setFilterCategoryState, filterCategoryState, openPostingModal }  = props;
+
 
 	return (
 		
@@ -43,8 +33,7 @@ export default function NavigationTab(props) {
 					<button className={"administration " + (filterCategoryState === 4 ? "buttonSelected" : "")} onClick={() => setFilterCategoryState(4)}>행정</button>
 					<button className={"etc " + (filterCategoryState === 5 ? "buttonSelected" : "")} onClick={() => setFilterCategoryState(5)}>기타</button>
 				</div>
-				<button className="petition-write" onClick={alterWritingModal}><p className="text">청원 작성하기</p></button>
-				{writingModalState && <WritingModal closeWritingModal = {closeWritingModal}/>}
+				<button className="petition-write" onClick={openPostingModal}><p className="text">청원 작성하기</p></button>
 
 			</div>
 		
