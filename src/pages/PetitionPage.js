@@ -61,11 +61,10 @@ export default function PetitionPage() {
 
 	useEffect(()=>{
 		let temp = [];
-		for (var i = 0, j = -1; i < comments.length; i++) {
-			if (j !== comments[i].pid) {
-				j = comments[i].pid;
-				temp[j] = [];
-			}
+		for(var i=0; i<petitions.length;i++){
+			temp.push([])
+		}
+		for(var i=0; i<comments.length; i++){
 			temp[comments[i].pid].push(comments[i]);
 		}
 		setCommentPid(temp);
@@ -119,6 +118,7 @@ export default function PetitionPage() {
 												setPetitions={setPetitions} 
 												petitionCat = {petitionCat}
 												setPetitionCat={setPetitionCat}
+												commentPid
 												petitionsSize={petitionsSize} 
 												setPetitionsSize={setPetitionsSize}  
 												closeWritingModal = {()=>setPostingModalState(false)}/>}
