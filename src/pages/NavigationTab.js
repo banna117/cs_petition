@@ -7,7 +7,7 @@ export default function NavigationTab(props) {
 	let [filterButtonState, setFilterButtonState] = useState(0);
 	let [writingModalState,setWritingModalState] = useState(false) ;
 
-	const { setFilterCategoryState:setFilterCategoryState, filterCategoryState:filterCategoryState } = props;
+	const { setFilterCategoryState, filterCategoryState } = props;
 
 	const closeWritingModal = () => {
 		setWritingModalState(false);

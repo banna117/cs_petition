@@ -27,7 +27,7 @@ export default function Post({ petitionInfo: { pid, uid, title, catId, descripti
         <CustomEditor />
         {commentInfo.map((comment)=>
 
-          <Comment key={comment.comId} commentInfo={comment}/>
+          <Comment key={comment.comId} comment={comment}/>
         
           )
         }

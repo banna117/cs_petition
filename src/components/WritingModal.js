@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "../components/WritingModal.scss";
 
@@ -17,14 +18,23 @@ export default function WritingModal(props) {
         }
         else{btn.disabled = 'disabled';}
     });
+
     const writeComplete = () => {
         const title = document.getElementById('title-input').value;
         const category = filterCategoryState;
         const content = document.getElementById("content-input").value;
 
         const post = {title, category, content};
-        console.log({title, category, content});
-
+        const temp = [];
+        console.log(post);
+       
+        axios.post("http://localhost:4000/test",{latestPost: post})
+        .then((res)=> {console.log(res);
+        temp.push(res.data)})
+        .catch((err) => console.log(err));
+        
+            console.log(temp);
+        //write the result to the server and show it on react
 
         closeWritingModal();
     }

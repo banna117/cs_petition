@@ -10,6 +10,7 @@ import "./styles.css";
 export default function App() {
   const [filterCategoryState, setFilterCategoryState] = useState(-1);
 
+
   return (
     <Router>
       <NavigationTab setFilterCategoryState={setFilterCategoryState} filterCategoryState={filterCategoryState}/>

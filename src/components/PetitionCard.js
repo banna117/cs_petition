@@ -12,7 +12,7 @@ export default function PetitionCard({ petition: { pid, title, catId, date, desc
                 <Category name="1,000명" />
             </div>
             <div className="lp-title">{title}</div>
-            <div className="lp-description">{description}</div>
+            <div className="lp-description" >{description}</div>
             <div className="lp-id-date">
                 {pid} <Dot /> {date}
             </div>

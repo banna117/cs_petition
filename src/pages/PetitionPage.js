@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import "./PetitionPage.scss";
 import PetitionCard from "../components/PetitionCard";
 import axios from "axios";
@@ -55,10 +55,13 @@ export default function PetitionPage(props) {
 	
 			}
 			setCommentPid(temp);
-			console.log(commentPid);
+
 		}
 		remakeComments();
 	}, [comments])
+
+
+
 	useEffect(()=>{
 		const remakePetitions=()=>{
 			let temp = [];
@@ -71,7 +74,7 @@ export default function PetitionPage(props) {
 				temp[petitions[i].catId].push(petitions[i]);
 			}
 			setPetitionCat(temp);
-			console.log(petitionCat);
+
 		}
 		remakePetitions();
 
