@@ -8,10 +8,9 @@ import WritingModal from "../components/WritingModal";
 
 export default function PetitionPage() {
 
-	let [petitions, setPetitions] = useState([]);
-	let [comments, setComments] = useState([]);
-	let [commentPid, setCommentPid] = useState([]);
-	let [petitionCat, setPetitionCat] = useState([]);
+	const [petitions, setPetitions] = useState([]);
+	const [comments, setComments] = useState([]);
+	const [categories, setCategories] = useState([]);
 
 	const [filterCategoryState, setFilterCategoryState] = useState(-1);
 	const [postingModalState,setPostingModalState] = useState(false) ;
@@ -19,8 +18,6 @@ export default function PetitionPage() {
 	const [petitionsSize, setPetitionsSize] = useState(0); //to keep track of the petitions size
 
 	const [selectedPost, setSelectedPost] = useState(-1);
-
-
 
 	useEffect(()=>{	
 		async function fetchData2(){
@@ -58,70 +55,82 @@ export default function PetitionPage() {
 		}
 		fetchData();
 	}, []);
-
 	useEffect(()=>{
-		let temp = [];
-		for(var i=0; i<petitions.length;i++){
-			temp.push([])
+		async function fetchData4(){
+			await axios
+			.get("/category")
+			.then((res) => {
+				console.log(res.data);
+				setCategories(res.data);
+			})
+			.catch();
 		}
-		for(var i=0; i<comments.length; i++){
-			temp[comments[i].pid].push(comments[i]);
-		}
-		setCommentPid(temp);
-		console.log(commentPid)
-	},[comments, setComments,setCommentPid]) 
+		fetchData4();
+	}, []);
 
-	useEffect(()=>{
-		let temp = [];
-		for (var i = 0; i < 6; i++) { temp.push([]); }
-		for (i = 0; i < petitions.length; i++) { temp[petitions[i].catId].push(petitions[i]); }
-		setPetitionCat(temp);
-		
-		console.log(petitionCat)
-		console.log(petitions)
-	}, [petitions, setPetitions, setPetitionCat])
+    const writeComplete = (title, catId, description) => {
+        const uid = 1;
+        const pid = petitionsSize;
+        const post = {pid, uid, title, catId, description};
 
+        let today = new Date();
+        const state = 0;
+        const date = today.toLocaleDateString();
+
+        axios.post("http://localhost:4000/test",{latestPost: post})
+        .then((res)=> {
+            console.log(res);
+        })
+        .catch((err) => console.log(err));
+        
+        //send the result to the react client
+        const newPetition = {pid, uid, title, catId, description, date, state };
+		petitions.push(newPetition);
+        setPetitions(petitions);
+
+        setPostingModalState(false);
+    }
+	
 	return (
 		<div className="petition-home">
-
 			<NavigationTab  filterCategoryState={filterCategoryState} 
 							setFilterCategoryState={setFilterCategoryState} 
 							openPostingModal={()=>setPostingModalState(true)}/>
 
 			<div className="petition">
 				{selectedPost === -1 ?
-					((filterCategoryState === -1) ? (
+					filterCategoryState === -1 ? (
 						petitions.map((petition) =>
 							<PetitionCard
 								key={petition.pid}
 								petition={petition}
+								categories={categories}
 								setSelectedPost={setSelectedPost}
 							/>
 						))
 						:
-						petitionCat[filterCategoryState].map((petition) =>
-							<PetitionCard
-								key={petition.pid}
-								petition={petition}
-								setSelectedPost={setSelectedPost}
-							/>
-						))
-					:
+						petitions.map((petition) => {
+							if(petition.catId === filterCategoryState)
+							return <PetitionCard
+										key={petition.pid}
+										petition={petition}
+										categories={categories}
+										setSelectedPost={setSelectedPost}
+									/>
+						})
+					:								
 					<Post
-						petitionInfo={petitions[selectedPost]}
-						commentInfo={commentPid[selectedPost]}
-						closePost={() => setSelectedPost(-1)} />
+							petitionInfo={petitions[selectedPost]}
+							comments={comments.filter((comment)=>{return (comment.pid === selectedPost)})}
+							categories={categories}
+							closePost={() => setSelectedPost(-1)} />
+
 				}
 			</div>
 			{postingModalState && <WritingModal  
-												petitions={petitions} 
-												setPetitions={setPetitions} 
-												petitionCat = {petitionCat}
-												setPetitionCat={setPetitionCat}
-												commentPid
-												petitionsSize={petitionsSize} 
-												setPetitionsSize={setPetitionsSize}  
-												closeWritingModal = {()=>setPostingModalState(false)}/>}
+												writeComplete={writeComplete}
+												closeWritingModal ={()=>setPostingModalState(false)} 
+												/>}
 		</div>
 	);
 }

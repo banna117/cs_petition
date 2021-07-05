@@ -32,7 +32,13 @@ app.get("/comments", (req, res) => {
     else res.send(err);
   });
 });
-
+// getting category from DB
+app.get("/category", (req, res) => {
+  db.query("SELECT * FROM categories", (err, data) => {
+    if (!err) res.send(data);
+    else res.send(err);
+  });
+});
 
 
 app.post("/test", (req, res) => {

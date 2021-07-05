@@ -8,7 +8,7 @@ export default function WritingModal(props) {
     let [titleLength, setTitleLength] = useState(0);
     let [contentLength, setContentLength] = useState(0);
 
-    const { closeWritingModal, petitionsSize, setPetitions, petitions, petitionCat, setPetitionCat} = props;
+    const { closeWritingModal, writeComplete } = props;
  
     useEffect(()=>{
         const btn = document.getElementById("write-complete-btn");
@@ -18,40 +18,9 @@ export default function WritingModal(props) {
         }
         else{btn.disabled = 'disabled';}
     });
-
-    const writeComplete = () => {
-        const title = document.getElementById('title-input').value;
-        const catId = filterCategoryState;
-        const description = document.getElementById("content-input").value;
-        const uid = 1;
-        const pid = petitionsSize;
-        const post = {pid, uid, title, catId, description};
-
-
-        console.log(post);
-       let today=new Date();
-       const state=0;
-       const date=today.toLocaleDateString();
-
-        axios.post("http://localhost:4000/test",{latestPost: post})
-        .then((res)=> {
-            console.log(res);
-        })
-        .catch((err) => console.log(err));
-        
-
-        //send the result to the react client
-        const newPetition = {pid, uid, title, catId, description, date, state };
-        const new2Petitions = petitions;
-        new2Petitions.push(newPetition)
-
-        setPetitions(new2Petitions);
-        let temp = petitionCat;
-        temp[newPetition.catId].push(newPetition);
-		setPetitionCat(temp);
-
-        closeWritingModal();
-    }
+ 
+    const catId = filterCategoryState;
+  
 
     return (
         <div className="writing-bg">
@@ -59,7 +28,10 @@ export default function WritingModal(props) {
 
                 <div className="writing-navigation">
                     <h1 className="logo">LOGO</h1>
-                    <button className={"write-petition "} id="write-complete-btn" onClick={writeComplete}>작성 완료</button>
+                    <button 
+                    className={"write-petition "} 
+                    id="write-complete-btn" 
+                    onClick={()=>writeComplete(document.getElementById('title-input').value, filterCategoryState, document.getElementById("content-input").value)}>작성 완료</button>
                     <button className="cancel-petition" onClick={closeWritingModal}>작성 취소</button>
                 </div>
                 <div className="writing-main">
