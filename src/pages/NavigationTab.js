@@ -8,7 +8,7 @@ export default function NavigationTab(props) {
 
 
 
-	let { setFilterCategoryState, filterCategoryState, openPostingModal }  = props;
+	let { setFilterCategoryState, filterCategoryState, openPostingModal, setSearchKeyword,search }  = props;
 
 
 	return (
@@ -16,12 +16,12 @@ export default function NavigationTab(props) {
 			<div className="tab">
 				<h1 className="logo-spot">LOGO</h1>
 				<div className="search">
-					<input className="search-bar" type="text" placeholder="검색..." ></input>
-					<button className="search-button"></button>
+					<input className="search-bar" type="text" placeholder="검색..." onChange={(e)=>setSearchKeyword(e.target.value)}  ></input>
+					<button className="search-button" onClick={search}></button>
 				</div>
 				<div className="filter-buttons">
 					<button className={"processing1 " + (filterButtonState === 0 ? "buttonSelected" : "")} onClick={() => setFilterButtonState(0)}><p>진행중인 청원<br></br>(최신순)</p></button>
-					<button className={"processing2 " + (filterButtonState === 1 ? "buttonSelected" : "")} onClick={() => setFilterButtonState(1)} ><p>진행중인 청원<br></br>(최신순)</p></button>
+					<button className={"processing2 " + (filterButtonState === 1 ? "buttonSelected" : "")} onClick={() => setFilterButtonState(1)} ><p>진행중인 청원<br></br>(청원순)</p></button>
 					<button className={"answered " + (filterButtonState === 2 ? "buttonSelected" : "")} onClick={() => setFilterButtonState(2)}>답변된 청원</button>
 					<button className={"expired " + (filterButtonState === 3 ? "buttonSelected" : "")} onClick={() => setFilterButtonState(3)}>만료된 청원</button>
 				</div>

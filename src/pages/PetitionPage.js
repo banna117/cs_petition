@@ -6,14 +6,17 @@ import Post from "../components/Post";
 import NavigationTab from "./NavigationTab";
 import WritingModal from "../components/WritingModal";
 
+
 export default function PetitionPage() {
 
 	const [petitions, setPetitions] = useState([]);
 	const [comments, setComments] = useState([]);
 	const [categories, setCategories] = useState([]);
+	const [searchKeyword, setSearchKeyword] = useState("");
 
 	const [filterCategoryState, setFilterCategoryState] = useState(-1);
 	const [postingModalState,setPostingModalState] = useState(false) ;
+	const [searchState, setSearchState] = useState(true);
 
 	const [petitionsSize, setPetitionsSize] = useState(0); //to keep track of the petitions size
 
@@ -90,35 +93,43 @@ export default function PetitionPage() {
 
         setPostingModalState(false);
     }
-	
+	// const search = ()=> {
+	// 	if(searchKeyword !== ""){
+	// 		setSearchState(true);
+	// 	}
+	// 	else{setSearchState(false)};
+	// }
+
 	return (
 		<div className="petition-home">
 			<NavigationTab  filterCategoryState={filterCategoryState} 
 							setFilterCategoryState={setFilterCategoryState} 
-							openPostingModal={()=>setPostingModalState(true)}/>
+							openPostingModal={()=>setPostingModalState(true)}
+							setSearchKeyword={setSearchKeyword}
+							/>
 
 			<div className="petition">
 				{selectedPost === -1 ?
-					filterCategoryState === -1 ? (
-						petitions.map((petition) =>
-							<PetitionCard
-								key={petition.pid}
-								petition={petition}
-								categories={categories}
-								setSelectedPost={setSelectedPost}
-							/>
-						))
-						:
+					filterCategoryState === -1 ? 
+						petitions.map((petition) =>{
+							if(petition.title.includes(searchKeyword))
+							return  <PetitionCard
+									key={petition.pid}
+									petition={petition}
+									categories={categories}
+									setSelectedPost={setSelectedPost}
+							/>})
+					:
 						petitions.map((petition) => {
-							if(petition.catId === filterCategoryState)
+							if((petition.catId === filterCategoryState) && (petition.title.includes(searchKeyword)))
 							return <PetitionCard
 										key={petition.pid}
 										petition={petition}
 										categories={categories}
 										setSelectedPost={setSelectedPost}
 									/>
-						})
-					:								
+							})
+				:								
 					<Post
 							petitionInfo={petitions[selectedPost]}
 							comments={comments.filter((comment)=>{return (comment.pid === selectedPost)})}
