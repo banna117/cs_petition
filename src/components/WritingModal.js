@@ -21,7 +21,7 @@ export default function WritingModal(props) {
  
     const catId = filterCategoryState;
   
-
+    
     return (
         <div className="writing-bg">
             <div className="writing-modal">

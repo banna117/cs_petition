@@ -1,17 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
-.petition{
-    
-    width:904px;
-    z-index: 0;;
+.petition-home{
     display: flex;
-    flex-flow: row wrap;
-    background-color:var(--container-02);
-    position:absolute;
-    justify-content: space-between;
+    flex-flow: row nowrap;
 
-    margin-left: 407px;
-    margin-top:40px;
+    .petition-nav{
+        position:fixed;
+        margin-left:40px;
+        margin-top:40px;
+    }
+    .petition{
+        
+        width:100%;
+        min-width:450px;
+        max-width: 904px;
 
+        display: flex;
+        flex-flow: row wrap;
+        background-color:var(--container-02);
+
+        justify-content: space-between;
+
+        margin-left: 407px;
+        margin-top:40px;
+
+    }
 }
 
 

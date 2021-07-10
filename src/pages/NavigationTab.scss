@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
-
+@media only all and (min-width:1000px){ .tab{display: flex;
+background-color: antiquewhite;}}
 .tab{
     display:flex;
     flex-direction: column;
@@ -10,12 +11,7 @@
     align-items: center;
     background-color:var(--container-01);
     padding:30px;
-    top:40px;
-    left:58px;
-    position:fixed;
     border-radius: 16px;
-    z-index:1;
-
     .logo-spot{
         font-size:16px;
     

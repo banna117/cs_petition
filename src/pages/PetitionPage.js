@@ -5,6 +5,8 @@ import axios from "axios";
 import Post from "../components/Post";
 import NavigationTab from "./NavigationTab";
 import WritingModal from "../components/WritingModal";
+import io from "socket.io-client"
+
 
 
 export default function PetitionPage() {
@@ -21,6 +23,7 @@ export default function PetitionPage() {
 	const [petitionsSize, setPetitionsSize] = useState(0); //to keep track of the petitions size
 
 	const [selectedPost, setSelectedPost] = useState(-1);
+	const [currentSocket, setCurrentSocket] = useState("");
 
 	useEffect(()=>{	
 		async function fetchData2(){
@@ -70,44 +73,53 @@ export default function PetitionPage() {
 		}
 		fetchData4();
 	}, []);
+	useEffect(()=>{
+		setCurrentSocket(io.connect("http://localhost:4000/"), {
+			withCredentials:true
+		})
+		console.log(currentSocket)
+
+	},[])
+	useEffect(()=>{
+		if(currentSocket){
+			//추가된 petition 받아서 petitions 어레이에 추가하기
+			currentSocket.on("addPost", (addingPost)=>{
+				
+				setPetitions((petitions)=>[...petitions, addingPost]);
+			})
+		}
+	},[currentSocket])
 
     const writeComplete = (title, catId, description) => {
         const uid = 1;
         const pid = petitionsSize;
-        const post = {pid, uid, title, catId, description};
-
         let today = new Date();
         const state = 0;
         const date = today.toLocaleDateString();
 
-        axios.post("http://localhost:4000/test",{latestPost: post})
-        .then((res)=> {
-            console.log(res);
-        })
-        .catch((err) => console.log(err));
+        // axios.post("http://localhost:4000/test",{latestPost: post})
+        // .then((res)=> {
+        //     console.log(res);
+        // })
+        // .catch((err) => console.log(err));
+		const newPetition = {pid, uid, title, catId, description, date, state };
+		
+		//서버에 새로 추가된 petition 보내기
+		currentSocket.emit("newPost", newPetition);
         
-        //send the result to the react client
-        const newPetition = {pid, uid, title, catId, description, date, state };
-		petitions.push(newPetition);
-        setPetitions(petitions);
-
+		setPetitionsSize(petitionsSize+1);
         setPostingModalState(false);
     }
-	// const search = ()=> {
-	// 	if(searchKeyword !== ""){
-	// 		setSearchState(true);
-	// 	}
-	// 	else{setSearchState(false)};
-	// }
 
 	return (
 		<div className="petition-home">
-			<NavigationTab  filterCategoryState={filterCategoryState} 
-							setFilterCategoryState={setFilterCategoryState} 
-							openPostingModal={()=>setPostingModalState(true)}
-							setSearchKeyword={setSearchKeyword}
-							/>
-
+			<div className="petition-nav">
+				<NavigationTab  filterCategoryState={filterCategoryState} 
+								setFilterCategoryState={setFilterCategoryState} 
+								openPostingModal={()=>setPostingModalState(true)}
+								setSearchKeyword={setSearchKeyword}
+								/>
+			</div>
 			<div className="petition">
 				{selectedPost === -1 ?
 					filterCategoryState === -1 ? 
