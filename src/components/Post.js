@@ -1,16 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Post.scss";
 import Category from "./Category";
 import Dot from "../assets/icons/dot";
 import Comment from "./Comment";
 import CustomEditor from "./CustomEditor";
 
-export default function Post({ petitionInfo: { pid, uid, title, catId, description, date, state }, comments , categories, closePost }) {
+export default function Post({ petitionInfo: { pid, uid, title, catId, description, date, state }, comments , addNewComment, categories, closePost, socket }) {
   console.log(categories)
+  useEffect(()=>{
+    socket.on("addComment", (addingComment)=>{
+      const comId = comments.length;
+      const date = new Date().toLocaleDateString();
+      addNewComment({pid, comId, uid, content:addingComment, date});
+      console.log(comments);
+    })
+  },[socket])
 
+  const sendNewComment=(content)=>{
+    const comId = comments.length;
+    socket.emit("newComment", {pid, comId, uid, content, date});
+  }
   return (
-    <div className="post" onClick={() => closePost()}>
-
+    <div className="post" >
+      <button className="close-button" onClick={() => closePost()}>X</button>
       <div className="title-box">
         <div className="category-list">
           <Category name={categories.map((category)=>{
@@ -29,7 +41,7 @@ export default function Post({ petitionInfo: { pid, uid, title, catId, descripti
       </div>
       <div className="comment-box">
 
-        <CustomEditor />
+        <CustomEditor sendNewComment={sendNewComment}/>
         {comments.map((comment)=>
           <Comment key={comment.comId} comment={comment}/>
           

@@ -98,7 +98,7 @@ export default function PetitionPage() {
         const date = today.toLocaleDateString();
 
         // axios.post("http://localhost:4000/test",{latestPost: post})
-        // .then((res)=> {
+        // .then((res)=> {z
         //     console.log(res);
         // })
         // .catch((err) => console.log(err));
@@ -110,7 +110,9 @@ export default function PetitionPage() {
 		setPetitionsSize(petitionsSize+1);
         setPostingModalState(false);
     }
-
+	const addNewComment=(obj)=>{
+		setComments((comments)=>[...comments, obj])
+	}
 	return (
 		<div className="petition-home">
 			<div className="petition-nav">
@@ -146,7 +148,9 @@ export default function PetitionPage() {
 							petitionInfo={petitions[selectedPost]}
 							comments={comments.filter((comment)=>{return (comment.pid === selectedPost)})}
 							categories={categories}
-							closePost={() => setSelectedPost(-1)} />
+							closePost={() => setSelectedPost(-1)} 
+							socket={currentSocket}
+							addNewComment={addNewComment}/>
 
 				}
 			</div>

@@ -49,19 +49,19 @@ app.get("/category", (req, res) => {
 });
 
 
-app.post("/test", (req, res) => {
-  // res.send(req.body);
-  console.log(req.body);
-  const testQuery = "INSERT INTO petitions VALUES ("+req.body.latestPost.pid+","+req.body.latestPost.uid+",\'" + req.body.latestPost.title + "\',\'" + req.body.latestPost.catId + "\',\'" + req.body.latestPost.description + "\',DATE_FORMAT(NOW(),'%Y.%m.%d'),0)"
-  console.log(testQuery);
-  db.query(testQuery, (err, data) => {
-    if (!err) res.send(data);
-    else res.send(err);
+// app.post("/test", (req, res) => {
+//   // res.send(req.body);
+//   console.log(req.body);
+//   const testQuery = "INSERT INTO petitions VALUES ("+req.body.latestPost.pid+","+req.body.latestPost.uid+",\'" + req.body.latestPost.title + "\',\'" + req.body.latestPost.catId + "\',\'" + req.body.latestPost.description + "\',DATE_FORMAT(NOW(),'%Y.%m.%d'),0)"
+//   console.log(testQuery);
+//   db.query(testQuery, (err, data) => {
+//     if (!err) res.send(data);
+//     else res.send(err);
     
-  }
+//   }
 
-  );
-});
+//   );
+// });
 
 io.on('connection', (socket)=>{
   console.log("접속함")
@@ -71,6 +71,13 @@ io.on('connection', (socket)=>{
     const testQuery = "INSERT INTO petitions VALUES ("+addingPost.pid+","+addingPost.uid+",\'" + addingPost.title + "\',\'" + addingPost.catId + "\',\'" + addingPost.description + "\',DATE_FORMAT(NOW(),'%Y.%m.%d'),0)"
     console.log(testQuery);
     db.query(testQuery);
+  })
+  socket.on("newComment", (addingComment)=>{
+    io.emit("addComment", addingComment.content);
+    console.log(addingComment);
+    const testQuery = "INSERT INTO comments VALUES ("+addingComment.pid+","+addingComment.comId+"," + addingComment.uid + ",\'" + addingComment.content + "\',DATE_FORMAT(NOW(),'%Y.%m.%d'))"
+    db.query(testQuery);
+    console.log(testQuery);
   })
 })
 
