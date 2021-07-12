@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./NavigationTab.scss";
-
+import Logo1 from "../assets/icons/LOGO1"
 
 
 export default function NavigationTab(props) {
@@ -14,7 +14,7 @@ export default function NavigationTab(props) {
 	return (
 		
 			<div className="tab">
-				<h1 className="logo-spot">LOGO</h1>
+				<div className="logo-spot"><Logo1/></div>
 				<div className="search">
 					<input className="search-bar" type="text" placeholder="검색..." onChange={(e)=>setSearchKeyword(e.target.value)}  ></input>
 					<button className="search-button" onClick={search}></button>
