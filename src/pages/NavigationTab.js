@@ -5,15 +5,9 @@ import Logo1 from "../assets/icons/LOGO1"
 
 export default function NavigationTab(props) {
 	const { setFilterCategoryState, filterCategoryState, openPostingModal, 
-		setSearchKeyword, search, setOnGoingState, onGoingState, 
-		socket, addPost }  = props;
+		setSearchKeyword, search, setOnGoingState, onGoingState
+	 }  = props;
 
-	useEffect(()=>{
-		if(socket)
-		socket.on("addPost", (addingPost)=>{
-			addPost(addingPost);
-		})
-	},[socket])
 
 	return (
 		

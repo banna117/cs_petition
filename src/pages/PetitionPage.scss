@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
-@media screen and (max-width:500px) {
-    .petition-home{
-    background-color: blue;
-    }
-}
+
 .petition-home{
     display: flex;
     flex-flow: row nowrap;
@@ -30,5 +26,25 @@
 
     }
 }
+@media screen and (max-width:1000px) {
+    .petition-home{
+        display: flex;
+        flex-flow: row nowrap;
 
+        .petition{
+            width:100%;
+            min-width:450px;
+            max-width: 904px;
+    
+            display: flex;
+            flex-flow: row wrap;
+            background-color:var(--container-02);
+    
+            justify-content: space-between;
+
+            margin-top:40px;
+    
+        }
+    }
+}
 

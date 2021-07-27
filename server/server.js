@@ -52,6 +52,7 @@ io.on('connection', (socket)=>{
   console.log("접속함")
 
   socket.on("newPost", (addingPost)=>{
+    console.log("on add post")
     io.emit("addPost", addingPost);
     const testQuery = "INSERT INTO petitions VALUES ("+addingPost.pid+","+addingPost.uid+",\'" + addingPost.title + "\',\'" + addingPost.catId + "\',\'" + addingPost.description + "\',DATE_FORMAT(NOW(),'%Y.%m.%d'),0)"
     console.log(testQuery);

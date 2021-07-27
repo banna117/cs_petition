@@ -7,7 +7,8 @@ import NavigationTab from "./NavigationTab";
 import WritingModal from "../components/WritingModal";
 import io from "socket.io-client"
 
-
+const URL = "http://localhost:4000/"
+const socket = io.connect(URL);
 
 export default function PetitionPage() {
 	//data from DB
@@ -26,7 +27,6 @@ export default function PetitionPage() {
 	const [onGoingState, setOnGoingState] = useState(0)
 
 	const [selectedPost, setSelectedPost] = useState(-1);
-	const [currentSocket, setCurrentSocket] = useState("");
 
 	//load petitions Data from DB {pid, uid, title, catId, description, date, state}
 	//state 0-ongoing, 1-answered, 2-expired
@@ -36,18 +36,18 @@ export default function PetitionPage() {
 			.get("/petitions")
 			.then((res) => {
 				console.log(res.data);
-				res.data.sort(
-					function(a,b){
-						if (a.pid < b.pid) {
-							return 1;
-						  }
-						  if (a.pid > b.pid) {
-							return -1;
-						  }
-						  // a must be equal to b
-						  return 0;
-					}
-				)
+				// res.data.sort(
+				// 	function(a,b){
+				// 		if (a.pid < b.pid) {
+				// 			return 1;
+				// 		  }
+				// 		  if (a.pid > b.pid) {
+				// 			return -1;
+				// 		  }
+				// 		  // a must be equal to b
+				// 		  return 0;
+				// 	}
+				// )
 				setPetitions(res.data);
 			})
 		}
@@ -95,28 +95,12 @@ export default function PetitionPage() {
 		fetchData4();
 	}, []);
 
-	//initial setting
-	useEffect(()=>{
-		setCurrentSocket(io.connect("http://localhost:4000/"), {
-			withCredentials:true
+	useEffect(() => {
+		//추가된 petition 받아서 petitions 어레이에 추가하기
+		socket.on("addPost", (addingPost) => {
+			setPetitions((petitions) => [...petitions, addingPost]);
 		})
-		console.log(currentSocket)
-
-	},[])
-
-	// useEffect(() => {
-	// 	if (currentSocket) {
-	// 		//추가된 petition 받아서 petitions 어레이에 추가하기
-	// 		currentSocket.on("addPost", (addingPost) => {
-	// 			setPetitions((petitions) => [...petitions, addingPost]);
-	// 		})
-	// 	}
-	// }, [currentSocket])
-
-	const addPost=(addingPost)=>{
-		setPetitions((petitions) => [...petitions, addingPost]);
-		console.log(petitions)
-	}
+	}, [socket])
 
     const writeComplete = (title, catId, description) => {
         const uid = 1;
@@ -127,15 +111,17 @@ export default function PetitionPage() {
 		const newPetition = {pid, uid, title, catId, description, date, state };
 		
 		//서버에 새로 추가된 petition 보내기
-		currentSocket.emit("newPost", newPetition);
+		socket.emit("newPost", newPetition);
         
+		console.log("i am here")
 		setPetitionsSize(petitionsSize+1);
         setPostingModalState(false);
     }
 	const addNewComment = (obj) => {
 		setComments((comments) => [...comments, obj])
 	}
-
+	console.log(comments)
+	console.log(selectedPost)
 
 	return (
 		<div className="petition-home">
@@ -146,8 +132,7 @@ export default function PetitionPage() {
 								setSearchKeyword={setSearchKeyword}
 								setOnGoingState={setOnGoingState}
 								onGoingState={onGoingState}
-								socket={currentSocket}
-								addPost={addPost}
+								socket={socket}
 								/>
 			</div>
 			<div className="petition">
@@ -175,10 +160,10 @@ export default function PetitionPage() {
 				:								
 					<Post
 							petitionInfo={petitions[selectedPost]}
-							comments={comments.filter((comment)=>{return (comment.pid === selectedPost)})}
+							comments={comments.filter(comment=>comment.pid === selectedPost)}
 							categories={categories}
 							closePost={() => setSelectedPost(-1)} 
-							socket={currentSocket}
+							socket={socket}
 							addNewComment={addNewComment}/>
 
 				}
