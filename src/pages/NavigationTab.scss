@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
-@media only all and (min-width:1000px){ .tab{display: flex;
-background-color: antiquewhite;}}
+@media only all and (max-width:1000px){ .tab{display: flex;
+background-color: red;}}
 .tab{
     display:flex;
     flex-direction: column;

@@ -4,12 +4,16 @@ import Logo1 from "../assets/icons/LOGO1"
 
 
 export default function NavigationTab(props) {
-	let [filterButtonState, setFilterButtonState] = useState(0);
+	const { setFilterCategoryState, filterCategoryState, openPostingModal, 
+		setSearchKeyword, search, setOnGoingState, onGoingState, 
+		socket, addPost }  = props;
 
-
-
-	let { setFilterCategoryState, filterCategoryState, openPostingModal, setSearchKeyword,search }  = props;
-
+	useEffect(()=>{
+		if(socket)
+		socket.on("addPost", (addingPost)=>{
+			addPost(addingPost);
+		})
+	},[socket])
 
 	return (
 		
@@ -20,10 +24,10 @@ export default function NavigationTab(props) {
 					<button className="search-button" onClick={search}></button>
 				</div>
 				<div className="filter-buttons">
-					<button className={"processing1 " + (filterButtonState === 0 ? "buttonSelected" : "")} onClick={() => setFilterButtonState(0)}><p>진행중인 청원<br></br>(최신순)</p></button>
-					<button className={"processing2 " + (filterButtonState === 1 ? "buttonSelected" : "")} onClick={() => setFilterButtonState(1)} ><p>진행중인 청원<br></br>(청원순)</p></button>
-					<button className={"answered " + (filterButtonState === 2 ? "buttonSelected" : "")} onClick={() => setFilterButtonState(2)}>답변된 청원</button>
-					<button className={"expired " + (filterButtonState === 3 ? "buttonSelected" : "")} onClick={() => setFilterButtonState(3)}>만료된 청원</button>
+					<button className={"processing1 " + (onGoingState === 0 ? "buttonSelected" : "")} onClick={() => setOnGoingState(0)}><p>진행중인 청원<br></br>(최신순)</p></button>
+					<button className={"processing2 " + (onGoingState === 0 ? "buttonSelected" : "")} onClick={() => setOnGoingState(0)} ><p>진행중인 청원<br></br>(청원순)</p></button>
+					<button className={"answered " + (onGoingState === 1 ? "buttonSelected" : "")} onClick={() => setOnGoingState(1)}>답변된 청원</button>
+					<button className={"expired " + (onGoingState === 2 ? "buttonSelected" : "")} onClick={() => setOnGoingState(2)}>만료된 청원</button>
 				</div>
 				<div className="filter-categories">
 					<button className={"facility " + (filterCategoryState === 0 ? "buttonSelected" : "")} onClick={() => setFilterCategoryState(0)}>시설</button>

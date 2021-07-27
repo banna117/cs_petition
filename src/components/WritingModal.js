@@ -4,12 +4,16 @@ import "../components/WritingModal.scss";
 
 
 export default function WritingModal(props) {
-	let [filterCategoryState, setFilterCategoryState] = useState(-1);
-    let [titleLength, setTitleLength] = useState(0);
-    let [contentLength, setContentLength] = useState(0);
+    //filterCategoryState: 새로운 청원의 카테고리
+    //titleLength: title 텍스트의 길이
+    //contentLength: description 텍스트의 길이
+	const [filterCategoryState, setFilterCategoryState] = useState(-1);
+    const [titleLength, setTitleLength] = useState(0);
+    const [contentLength, setContentLength] = useState(0);
 
     const { closeWritingModal, writeComplete } = props;
  
+    //제목을 1글자 이상 적고, 내용을 1글자 이상 적고, 카테고리를 선택한 상태에서만 버튼을 활성화한다.
     useEffect(()=>{
         const btn = document.getElementById("write-complete-btn");
         
@@ -19,9 +23,6 @@ export default function WritingModal(props) {
         else{btn.disabled = 'disabled';}
     });
  
-    const catId = filterCategoryState;
-  
-    
     return (
         <div className="writing-bg">
             <div className="writing-modal">

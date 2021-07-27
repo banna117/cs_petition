@@ -48,21 +48,6 @@ app.get("/category", (req, res) => {
   });
 });
 
-
-// app.post("/test", (req, res) => {
-//   // res.send(req.body);
-//   console.log(req.body);
-//   const testQuery = "INSERT INTO petitions VALUES ("+req.body.latestPost.pid+","+req.body.latestPost.uid+",\'" + req.body.latestPost.title + "\',\'" + req.body.latestPost.catId + "\',\'" + req.body.latestPost.description + "\',DATE_FORMAT(NOW(),'%Y.%m.%d'),0)"
-//   console.log(testQuery);
-//   db.query(testQuery, (err, data) => {
-//     if (!err) res.send(data);
-//     else res.send(err);
-    
-//   }
-
-//   );
-// });
-
 io.on('connection', (socket)=>{
   console.log("접속함")
 
@@ -80,8 +65,6 @@ io.on('connection', (socket)=>{
     console.log(testQuery);
   })
 })
-
-
 
 server.listen(PORT, () => {
   console.log(`Server On : http://localhost:${PORT}/`);

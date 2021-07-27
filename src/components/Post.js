@@ -7,8 +7,10 @@ import CustomEditor from "./CustomEditor";
 
 export default function Post({ petitionInfo: { pid, uid, title, catId, description, date, state }, comments , addNewComment, categories, closePost, socket }) {
   console.log(categories)
+
   useEffect(()=>{
     socket.on("addComment", (addingComment)=>{
+      //이 post에 달린 댓글들의 수
       const comId = comments.length;
       const date = new Date().toLocaleDateString();
       addNewComment({pid, comId, uid, content:addingComment, date});
@@ -20,9 +22,12 @@ export default function Post({ petitionInfo: { pid, uid, title, catId, descripti
     const comId = comments.length;
     socket.emit("newComment", {pid, comId, uid, content, date});
   }
+
   return (
     <div className="post" >
-      <button className="close-button" onClick={() => closePost()}>X</button>
+      <div className="close-spot">
+        <button className="close-button" onClick={() => closePost()}>X</button>
+      </div>
       <div className="title-box">
         <div className="category-list">
           <Category name={categories.map((category)=>{
