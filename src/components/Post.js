@@ -6,22 +6,18 @@ import Comment from "./Comment";
 import CustomEditor from "./CustomEditor";
 
 export default function Post({ petitionInfo: { pid, uid, title, catId, description, date, state }, comments, addNewComment, categories, closePost, socket }) {
-    console.log(comments)
-
-    useEffect(() => {
-        socket.on("addComment", (addingComment) => {
-            //이 post에 달린 댓글들의 수
-            const comId = comments.length;
-            const date = new Date().toLocaleDateString();
-            addNewComment({ pid, comId, uid, content: addingComment, date });
-            console.log(comments);
-        })
-    }, [socket])
 
     const sendNewComment = (content) => {
         const comId = comments.length;
         socket.emit("newComment", { pid, comId, uid, content, date });
     }
+
+    // useEffect(()=>{
+    //     socket.on("addComment", (addingComment) => {
+    //         //이 post에 달린 댓글들의 수
+	// 		addNewComment(addingComment);
+    //     })
+    // },[socket, addNewComment])
 
     return (
         <div className="post" >

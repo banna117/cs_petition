@@ -25,8 +25,13 @@ export default function PetitionPage() {
 
 	//0: 진행중인 청원(최신순) 3: 진행중인 청원(청원순) 1:답변된 청원 2:만료된 청원
 	const [onGoingState, setOnGoingState] = useState(0)
-
 	const [selectedPost, setSelectedPost] = useState(-1);
+
+	// //socket
+	// const [socket, setSocket] = useState(io.connect(URL));
+
+	//navigation 숨기기
+	const [hideNav, setHideNav] = useState(false);
 
 	//load petitions Data from DB {pid, uid, title, catId, description, date, state}
 	//state 0-ongoing, 1-answered, 2-expired
@@ -100,8 +105,16 @@ export default function PetitionPage() {
 		socket.on("addPost", (addingPost) => {
 			setPetitions((petitions) => [...petitions, addingPost]);
 		})
+		//추가된 comment 받아서 comments 어레이에 추가하기
+		socket.on("addComment", (addingComment)=>{
+			setComments((comments)=>[...comments, addingComment])
+		})
+
 	}, [socket])
 
+
+
+	//청원 작성 완료 
     const writeComplete = (title, catId, description) => {
         const uid = 1;
         const pid = petitions.length;
@@ -112,61 +125,64 @@ export default function PetitionPage() {
 		
 		//서버에 새로 추가된 petition 보내기
 		socket.emit("newPost", newPetition);
-        
-		console.log("i am here")
-		setPetitionsSize(petitionsSize+1);
+
         setPostingModalState(false);
     }
-	const addNewComment = (obj) => {
-		setComments((comments) => [...comments, obj])
-	}
-	console.log(comments)
-	console.log(selectedPost)
+	//
+	//const addNewComment = (addingComment) => {
+	//	setComments((comments) => [...comments, addingComment])
+	//}
+	console.log(hideNav)
 
 	return (
 		<div className="petition-home">
-			<div className="petition-nav">
-				<NavigationTab  filterCategoryState={filterCategoryState} 
-								setFilterCategoryState={setFilterCategoryState} 
-								openPostingModal={()=>setPostingModalState(true)}
-								setSearchKeyword={setSearchKeyword}
-								setOnGoingState={setOnGoingState}
-								onGoingState={onGoingState}
-								socket={socket}
-								/>
+			<div className={"petition-left " +(hideNav ? "hide3" : "")}>
+				<button className="hide-btn" onClick={()=>{if(hideNav){setHideNav(false)}
+															else{setHideNav(true)}}}>hide</button>
+				<div className={"petition-nav "+ (hideNav ? "hide1" : "reveal")} >
+					<NavigationTab  filterCategoryState={filterCategoryState} 
+									setFilterCategoryState={setFilterCategoryState} 
+									openPostingModal={()=>setPostingModalState(true)}
+									setSearchKeyword={setSearchKeyword}
+									setOnGoingState={setOnGoingState}
+									onGoingState={onGoingState}
+									/>
+				</div>
 			</div>
-			<div className="petition">
-				{selectedPost === -1 ?
-					filterCategoryState === -1 ? 
-						
-						petitions.map((petition) =>{
-							if(petition.title.includes(searchKeyword) && onGoingState === petition.state)
-							return  <PetitionCard
-									key={petition.pid}
-									petition={petition}
-									categories={categories}
-									setSelectedPost={setSelectedPost}
-							/>})
-					:
-						petitions.map((petition) => {
-							if((petition.catId === filterCategoryState) && (petition.title.includes(searchKeyword)) && onGoingState === petition.state)
-							return <PetitionCard
+			<div className={"petition " + (hideNav ? "hide2" : "")}>
+				<div className="petition-list">
+					{selectedPost === -1 ?
+						filterCategoryState === -1 ? 
+							petitions.map((petition) =>{
+								if(petition.title.includes(searchKeyword) && onGoingState === petition.state)
+								return  <PetitionCard
 										key={petition.pid}
 										petition={petition}
 										categories={categories}
 										setSelectedPost={setSelectedPost}
-									/>
-							})
-				:								
-					<Post
-							petitionInfo={petitions[selectedPost]}
-							comments={comments.filter(comment=>comment.pid === selectedPost)}
-							categories={categories}
-							closePost={() => setSelectedPost(-1)} 
-							socket={socket}
-							addNewComment={addNewComment}/>
+								/>})
+						:
+							petitions.map((petition) => {
+								if((petition.catId === filterCategoryState) && (petition.title.includes(searchKeyword)) && onGoingState === petition.state)
+								return <PetitionCard
+											key={petition.pid}
+											petition={petition}
+											categories={categories}
+											setSelectedPost={setSelectedPost}
+										/>
+								})
+					:								
+						<Post
+								petitionInfo={petitions[selectedPost]}
+								comments={comments.filter(comment=>comment.pid === selectedPost)}
+								categories={categories}
+								closePost={() => setSelectedPost(-1)} 
+								socket={socket}
+								// addNewComment={addNewComment}
+								/>
 
-				}
+					}
+				</div>
 			</div>
 			{postingModalState && <WritingModal  
 												writeComplete={writeComplete}

@@ -50,7 +50,8 @@ app.get("/category", (req, res) => {
 
 io.on('connection', (socket)=>{
   console.log("접속함")
-
+  console.log("22")
+  
   socket.on("newPost", (addingPost)=>{
     console.log("on add post")
     io.emit("addPost", addingPost);
@@ -59,7 +60,7 @@ io.on('connection', (socket)=>{
     db.query(testQuery);
   })
   socket.on("newComment", (addingComment)=>{
-    io.emit("addComment", addingComment.content);
+    io.emit("addComment", addingComment);
     console.log(addingComment);
     const testQuery = "INSERT INTO comments VALUES ("+addingComment.pid+","+addingComment.comId+"," + addingComment.uid + ",\'" + addingComment.content + "\',DATE_FORMAT(NOW(),'%Y.%m.%d'))"
     db.query(testQuery);

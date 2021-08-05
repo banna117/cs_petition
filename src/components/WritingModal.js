@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "../components/WritingModal.scss";
-
+import Logo1 from "../assets/icons/LOGO1";
 
 export default function WritingModal(props) {
     //filterCategoryState: 새로운 청원의 카테고리
@@ -28,7 +28,7 @@ export default function WritingModal(props) {
             <div className="writing-modal">
 
                 <div className="writing-navigation">
-                    <h1 className="logo">LOGO</h1>
+                    <div className="logo"><Logo1/></div>
                     <button 
                     className={"write-petition "} 
                     id="write-complete-btn" 
