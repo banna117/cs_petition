@@ -10,6 +10,7 @@ const io = require("socket.io")(server, {
   }
 })
 const db = require("./config/db");
+const resolve = require("resolve");
 
 
 // const bodyParser = require('body-parser');
@@ -47,10 +48,16 @@ app.get("/category", (req, res) => {
     else res.send(err);
   });
 });
+//getting agrrements from DB
+app.get("/agreements", (req, res) => {
+  db.query("SELECT * FROM agree", (err, data) => {
+    if(!err) res.send(data);
+    else res.send(data);
+  })
+})
 
 io.on('connection', (socket)=>{
   console.log("접속함")
-  console.log("22")
   
   socket.on("newPost", (addingPost)=>{
     console.log("on add post")
@@ -65,6 +72,12 @@ io.on('connection', (socket)=>{
     const testQuery = "INSERT INTO comments VALUES ("+addingComment.pid+","+addingComment.comId+"," + addingComment.uid + ",\'" + addingComment.content + "\',DATE_FORMAT(NOW(),'%Y.%m.%d'))"
     db.query(testQuery);
     console.log(testQuery);
+  })
+  socket.on("newAgree", (addingAgree)=>{
+    io.emit("addAgree", addingAgree);
+    const testQuery = "INSERT INTO agree VALUES ("+addingAgree.pid+","+addingAgree.uid+")";
+    db.query(testQuery);
+    console.log(testQuery)
   })
 })
 

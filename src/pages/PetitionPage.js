@@ -7,6 +7,8 @@ import NavigationTab from "./NavigationTab";
 import WritingModal from "../components/WritingModal";
 import io from "socket.io-client"
 
+import Menu from "../assets/icons/Menu"
+
 const URL = "http://localhost:4000/"
 const socket = io.connect(URL);
 
@@ -16,6 +18,7 @@ export default function PetitionPage() {
 	const [comments, setComments] = useState([]);
 	const [categories, setCategories] = useState([]);
 	const [petitionsSize, setPetitionsSize] = useState(0); //to keep track of the petitions size
+	const [agreements, setAgreements] = useState([]);
 
 	//검색창에 입력한 스트링값 저장
 	const [searchKeyword, setSearchKeyword] = useState("");
@@ -100,6 +103,22 @@ export default function PetitionPage() {
 		fetchData4();
 	}, []);
 
+	//load agreements data from DB {catId, name}
+	useEffect(()=>{
+		async function fetchData5(){
+			await axios
+			.get("/agreements")
+			.then((res) => {
+				console.log(res.data);
+				setAgreements(res.data);
+			})
+			.catch();
+		}
+		fetchData5();
+	}, []);
+
+
+	//handling server request
 	useEffect(() => {
 		//추가된 petition 받아서 petitions 어레이에 추가하기
 		socket.on("addPost", (addingPost) => {
@@ -108,6 +127,10 @@ export default function PetitionPage() {
 		//추가된 comment 받아서 comments 어레이에 추가하기
 		socket.on("addComment", (addingComment)=>{
 			setComments((comments)=>[...comments, addingComment])
+		})
+		//추가된 agree 받아서 agreements 어레이에 추가하기
+		socket.on("addAgree", (addingAgree)=> {
+			setAgreements((agreements)=>[...agreements, addingAgree])
 		})
 
 	}, [socket])
@@ -132,21 +155,21 @@ export default function PetitionPage() {
 	//const addNewComment = (addingComment) => {
 	//	setComments((comments) => [...comments, addingComment])
 	//}
-	console.log(hideNav)
+	console.log(agreements)
 
 	return (
 		<div className="petition-home">
 			<div className={"petition-left " +(hideNav ? "hide3" : "")}>
 				<button className="hide-btn" onClick={()=>{if(hideNav){setHideNav(false)}
-															else{setHideNav(true)}}}>hide</button>
+															else{setHideNav(true)}}}><Menu/></button>
 				<div className={"petition-nav "+ (hideNav ? "hide1" : "reveal")} >
-					<NavigationTab  filterCategoryState={filterCategoryState} 
+					{<NavigationTab  filterCategoryState={filterCategoryState} 
 									setFilterCategoryState={setFilterCategoryState} 
 									openPostingModal={()=>setPostingModalState(true)}
 									setSearchKeyword={setSearchKeyword}
 									setOnGoingState={setOnGoingState}
 									onGoingState={onGoingState}
-									/>
+									/>}
 				</div>
 			</div>
 			<div className={"petition " + (hideNav ? "hide2" : "")}>
@@ -160,6 +183,7 @@ export default function PetitionPage() {
 										petition={petition}
 										categories={categories}
 										setSelectedPost={setSelectedPost}
+										agreements = {agreements.filter(agreement=>agreement.pid === petition.pid)}
 								/>})
 						:
 							petitions.map((petition) => {
@@ -169,6 +193,7 @@ export default function PetitionPage() {
 											petition={petition}
 											categories={categories}
 											setSelectedPost={setSelectedPost}
+											agreements = {agreements.filter(agreement=>agreement.pid === petition.pid)}
 										/>
 								})
 					:								
@@ -178,6 +203,7 @@ export default function PetitionPage() {
 								categories={categories}
 								closePost={() => setSelectedPost(-1)} 
 								socket={socket}
+								agreements = {agreements.filter(agreement=>agreement.pid === selectedPost)}
 								// addNewComment={addNewComment}
 								/>
 
