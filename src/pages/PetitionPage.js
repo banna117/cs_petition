@@ -6,6 +6,7 @@ import Post from "../components/Post";
 import NavigationTab from "./NavigationTab";
 import WritingModal from "../components/WritingModal";
 import io from "socket.io-client"
+import HomePage from "./HomePage";
 
 import Menu from "../assets/icons/Menu"
 
@@ -30,8 +31,16 @@ export default function PetitionPage() {
 	const [onGoingState, setOnGoingState] = useState(0)
 	const [selectedPost, setSelectedPost] = useState(-1);
 
-	// //socket
-	// const [socket, setSocket] = useState(io.connect(URL));
+	//login 정보
+	const [userName, setUserName] = useState("");
+	const [userMajor, setUserMajor] = useState("");
+
+	const [logined, setLoginned] = useState(false);
+
+	useEffect(()=> {
+		if(userName && userMajor){setLoginned(true)}
+		else{setLoginned(false)}
+	})
 
 	//navigation 숨기기
 	const [hideNav, setHideNav] = useState(false);
@@ -43,7 +52,7 @@ export default function PetitionPage() {
 			await axios
 			.get("/petitions")
 			.then((res) => {
-				console.log(res.data);
+				// console.log(res.data);
 				// res.data.sort(
 				// 	function(a,b){
 				// 		if (a.pid < b.pid) {
@@ -68,7 +77,7 @@ export default function PetitionPage() {
 			await axios
 			.get("/petitions/size")
 			.then((res) => {
-				console.log(res.data);
+				// console.log(res.data);
 				setPetitionsSize(res.data[0].size);
 			})
 		}
@@ -81,7 +90,7 @@ export default function PetitionPage() {
 			await axios
 			.get("/comments")
 			.then((res) => {
-				console.log(res.data);
+				// console.log(res.data);
 				setComments(res.data);
 			})
 			.catch();
@@ -95,7 +104,7 @@ export default function PetitionPage() {
 			await axios
 			.get("/category")
 			.then((res) => {
-				console.log(res.data);
+				// console.log(res.data);
 				setCategories(res.data);
 			})
 			.catch();
@@ -109,7 +118,7 @@ export default function PetitionPage() {
 			await axios
 			.get("/agreements")
 			.then((res) => {
-				console.log(res.data);
+				// console.log(res.data);
 				setAgreements(res.data);
 			})
 			.catch();
@@ -151,11 +160,19 @@ export default function PetitionPage() {
 
         setPostingModalState(false);
     }
+
+	//로그인 완료
+	const loginComplete = (name, major) => {
+		setUserName(name);
+		setUserMajor(major);
+	}
 	//
 	//const addNewComment = (addingComment) => {
 	//	setComments((comments) => [...comments, addingComment])
 	//}
-	console.log(agreements)
+
+	console.log(userName)
+	console.log(userMajor)
 
 	return (
 		<div className="petition-home">
@@ -163,7 +180,8 @@ export default function PetitionPage() {
 				<button className="hide-btn" onClick={()=>{if(hideNav){setHideNav(false)}
 															else{setHideNav(true)}}}><Menu/></button>
 				<div className={"petition-nav "+ (hideNav ? "hide1" : "reveal")} >
-					{<NavigationTab  filterCategoryState={filterCategoryState} 
+					{<NavigationTab loginComplete={loginComplete} 
+									filterCategoryState={filterCategoryState} 
 									setFilterCategoryState={setFilterCategoryState} 
 									openPostingModal={()=>setPostingModalState(true)}
 									setSearchKeyword={setSearchKeyword}

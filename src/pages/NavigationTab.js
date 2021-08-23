@@ -1,11 +1,12 @@
 import React from "react";
 import "./NavigationTab.scss";
 import Logo1 from "../assets/icons/LOGO1"
+import LoginForm from "../components/LoginForm";
 
 
 export default function NavigationTab(props) {
 	const { setFilterCategoryState, filterCategoryState, openPostingModal, 
-		setSearchKeyword, search, setOnGoingState, onGoingState
+		setSearchKeyword, search, setOnGoingState, onGoingState, loginComplete, loginned
 	 }  = props;
 
 
@@ -13,6 +14,7 @@ export default function NavigationTab(props) {
 		
 			<div className="tab">
 				<div className="logo-spot"><Logo1/></div>
+				<div className="login-box"><LoginForm loginned={loginned} loginComplete={loginComplete}/></div>
 				<div className="search">
 					<input className="search-bar" type="text" placeholder="검색..." onChange={(e)=>setSearchKeyword(e.target.value)}  ></input>
 					<button className="search-button" onClick={search}></button>
@@ -24,6 +26,7 @@ export default function NavigationTab(props) {
 					<button className={"expired " + (onGoingState === 2 ? "buttonSelected" : "")} onClick={() => setOnGoingState(2)}>만료된 청원</button>
 				</div>
 				<div className="filter-categories">
+					<button className={"whole " + (filterCategoryState === -1 ? "buttonSelected" : "")} onClick={() => setFilterCategoryState(-1)}>전체</button>
 					<button className={"facility " + (filterCategoryState === 0 ? "buttonSelected" : "")} onClick={() => setFilterCategoryState(0)}>시설</button>
 					<button className={"academy " + (filterCategoryState === 1 ? "buttonSelected" : "")} onClick={() => setFilterCategoryState(1)}>학업</button>
 					<button className={"welfare " + (filterCategoryState === 2 ? "buttonSelected" : "")} onClick={() => setFilterCategoryState(2)}>복지</button>

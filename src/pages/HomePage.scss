@@ -1,58 +1,70 @@
+.home{
+    position:fixed;
+    top: 0; bottom:0; right:0; left:0;
+    background-color: var(--container-02);
+    z-index:1000;
+    display: flex;
+    flex-flow:row nowrap;
+    justify-content: center;
 
-.home_display{
-    display: inline-flex;
-    flex-direction: column;
-    margin-top: 100px;
-    height:100%;
-    align-items: center;
-    background-color:white;
+    .main-column{
+        display:flex;
+        flex-flow:column nowrap;
+        height: 100%;
+        width: fit-content;
+        justify-content: center;
 
-    .banner{
-    width:70%;
-    height:40%;
-    margin-top: 100px;
-    margin-bottom: 50px;
-    border-radius: 10px;
-    background-color: whitesmoke;
-    }
-    .top3{
-
-    display: inline-flex;
-    flex-direction: row;
-    height:300px;
-    margin-bottom: 50px;
-    width:1000px;
-    border:thin;
-    border-color: tomato;
+        .hp-nameinput{
+    
+            height:fit-content;
+            width:500px;
+            background-color:var(--container-01);
+            border-radius: 20px;
+            padding:40px;
         
+            .hp-logo{
+                margin-bottom:80px;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+            }
+            .hp-input{
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: space-between;
+                height:150px;
+                .input-name, .input-major{
+                    height:60px;
+                    outline:none;
+                    border-radius:5px;  
+                    border:solid black 1px;
+                    padding:4px;
+        
+                    &:focus{
+                        border:solid black 3px;
+                    }
+                }
+        
+            }
+            .hp-login{
+                padding:20px;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                .login-button{
+                    &:enabled{
+                        background-color: var(--blue-02);
+                        opacity: 1;
+                        cursor: pointer;
+                    }
+                    &:disabled{
+                        background-color: var(--blue-02);
+                        opacity:0.5;
+                        cursor:not-allowed;
+                    }
+                }
+            }
+        }
     }
+
 }
-
-/*TopPetition.js*/
-.top3_format{
-    display:flex;
-    flex-direction: column;
-    width:280px;
-    height:300px;
-    justify-content:flex-start;
-    text-align:justify;
-
-    background-color:whitesmoke;
-    border-color: black;
-    border-width: 30px;
-    border-radius: 10px;
-    margin-right: 20px;
-    margin-left:20px;
-
-    word-break: break-all;
-    padding:7px;
-
-    .top_id, .top_content{
-        font-size: medium;
-    }
-    .title{
-        margin-top: 10px;
-        margin-bottom: 20px;
-    }
-}
-

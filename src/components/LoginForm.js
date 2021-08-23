@@ -1,10 +1,7 @@
 import React, {useEffect, useState} from "react";
+import "./LoginForm.scss";
 
-import "./HomePage.scss";
-import Logo1 from "../assets/icons/LOGO1"
-
-
-export default function HomePage() {
+export default function LoginForm({loginComplete}) {
     //variables
     const [name, setName] = useState("");
     const [major, setMajor] = useState("")
@@ -15,14 +12,10 @@ export default function HomePage() {
         else{btn.disabled="disabled"}
     })
 
-
     return (
-        <div className="home">
-            <div className="main-column">
+
                 <div className="hp-nameinput">
-                    <div className="hp-logo">
-                        <Logo1 />
-                    </div>
+                    <div className="hp-logintext">LOGIN</div>
                     <div className="hp-input">
                         <input className="input-name" type="text" placeholder="Type your Name" onChange={(e)=>setName(e.target.value)}/>
                         <input className="input-major" type="text" placeholder="Type your Major" list="major-list" onChange={(e)=>setMajor(e.target.value)} />
@@ -41,12 +34,9 @@ export default function HomePage() {
                         </datalist>
                     </div>
                     <div className="hp-login">
-                        <button className="login-button" id="login-complete-btn">Login</button>
+                        <button className="login-button" id="login-complete-btn" onClick={()=>loginComplete(name,major)}>Login</button>
                     </div>
                 </div>
-            </div>
-        </div>
+ 
     )
 }
-
-
