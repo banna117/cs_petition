@@ -6,7 +6,6 @@ import Post from "../components/Post";
 import NavigationTab from "./NavigationTab";
 import WritingModal from "../components/WritingModal";
 import io from "socket.io-client"
-import HomePage from "./HomePage";
 
 import Menu from "../assets/icons/Menu"
 
@@ -35,11 +34,12 @@ export default function PetitionPage() {
 	const [userName, setUserName] = useState("");
 	const [userMajor, setUserMajor] = useState("");
 
-	const [logined, setLoginned] = useState(false);
+	const [loginned, setLoginned] = useState(false);
 
 	useEffect(()=> {
 		if(userName && userMajor){setLoginned(true)}
-		else{setLoginned(false)}
+		else{
+			setLoginned(false)}
 	})
 
 	//navigation 숨기기
@@ -171,22 +171,29 @@ export default function PetitionPage() {
 	//	setComments((comments) => [...comments, addingComment])
 	//}
 
-	console.log(userName)
-	console.log(userMajor)
+	const notifyNotLoginned = ()=>{
+		setPostingModalState(false);
+		alert("로그인이 필요한 서비스입니다.")
+	}
 
 	return (
 		<div className="petition-home">
 			<div className={"petition-left " +(hideNav ? "hide3" : "")}>
 				<button className="hide-btn" onClick={()=>{if(hideNav){setHideNav(false)}
-															else{setHideNav(true)}}}><Menu/></button>
+															else{setHideNav(true)}}}></button>
 				<div className={"petition-nav "+ (hideNav ? "hide1" : "reveal")} >
-					{<NavigationTab loginComplete={loginComplete} 
+					{<NavigationTab loginned={loginned}
+									setUserName={setUserName}
+									setUserMajor={setUserMajor}
+									loginComplete={loginComplete} 
 									filterCategoryState={filterCategoryState} 
 									setFilterCategoryState={setFilterCategoryState} 
 									openPostingModal={()=>setPostingModalState(true)}
 									setSearchKeyword={setSearchKeyword}
 									setOnGoingState={setOnGoingState}
 									onGoingState={onGoingState}
+									userName={userName}
+									userMajor={userMajor}
 									/>}
 				</div>
 			</div>
@@ -202,6 +209,7 @@ export default function PetitionPage() {
 										categories={categories}
 										setSelectedPost={setSelectedPost}
 										agreements = {agreements.filter(agreement=>agreement.pid === petition.pid)}
+										filterCategoryState={filterCategoryState}
 								/>})
 						:
 							petitions.map((petition) => {
@@ -212,6 +220,7 @@ export default function PetitionPage() {
 											categories={categories}
 											setSelectedPost={setSelectedPost}
 											agreements = {agreements.filter(agreement=>agreement.pid === petition.pid)}
+											filterCategoryState={filterCategoryState}
 										/>
 								})
 					:								
@@ -228,10 +237,10 @@ export default function PetitionPage() {
 					}
 				</div>
 			</div>
-			{postingModalState && <WritingModal  
+			{loginned ? postingModalState && <WritingModal  
 												writeComplete={writeComplete}
 												closeWritingModal ={()=>setPostingModalState(false)} 
-												/>}
+												/> : postingModalState && notifyNotLoginned()}
 		</div>
 	);
 }

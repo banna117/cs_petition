@@ -37,8 +37,8 @@ export default function Post({ petitionInfo: { pid, uid, title, catId, descripti
             </div>
             <p className="description">{description}</p>
             <div className="agree-box">
-                <p>현재까지 {agreements.length}명이 동의했습니다.</p>
-                <button onClick={sendNewAgreement}>청원 동의하기</button>
+                <div className="agree-num">현재까지 {agreements.length}명이 동의했습니다.</div>
+                <button className="agree-btn" onClick={sendNewAgreement}>청원 동의하기</button>
             </div>
             <div className="comment-box">
 

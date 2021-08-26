@@ -3,16 +3,16 @@ import "./PetitionCard.scss";
 import Dot from "../assets/icons/dot";
 import Category from "./Category";
 
-export default function PetitionCard({ petition: { pid, title, catId, date, description }, categories, agreements, setSelectedPost }) {
+export default function PetitionCard({ petition: { pid, title, catId, date, description }, categories, agreements, setSelectedPost, filterCategoryState }) {
     console.log(agreements)
     return (
         <button key={pid} className="list-petition" onClick={() => setSelectedPost(pid)}>
             {/*  data processing! */}
             <div className="lp-category">
-            <Category name={categories.map((category)=>{
+            <Category filter = {filterCategoryState} name={categories.map((category)=>{
             if(catId == category.catId){return category.name;}
           })} />
-                <Category name={agreements.length+"명"} />
+                <Category filter={-1} name={agreements.length+"명"} />
             </div>
             <div className="lp-title">{title}</div>
             <div className="lp-description" >{description}</div>

@@ -44,6 +44,11 @@
         flex-direction: row;
         justify-content: center;
         .login-button{
+            color:black;
+            width:50px;
+            height:20px;
+
+            border-radius: 5px;
             &:enabled{
                 background-color: var(--blue-02);
                 opacity: 1;

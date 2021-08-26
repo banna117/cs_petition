@@ -13,3 +13,20 @@
   font-style: normal;
   color: var(--text-02);
 }
+.selected{
+  width: fit-content;
+  height: 28px;
+  padding: 8px 16px;
+
+  border-style: solid;
+  border-color: var(--container-02);
+  border-radius: 14px;
+  border-width: 1px;
+  
+  font-size: 12px;
+  line-height: 12px;
+  font-style: normal;
+  
+  background-color: var(--blue-02);
+  color:var(--text--on-dark-01);
+}

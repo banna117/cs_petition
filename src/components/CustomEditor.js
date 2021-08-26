@@ -9,12 +9,13 @@ export default function CustomEditor({sendNewComment}) {
   return (
     <div className="custom-editor">
       <textarea
+        className="ce-area"
         placeholder="댓글 입력..."
         onChange={(e) => setContent(e.target.value)}
         defaultValue={content}
       >
       </textarea>
-      <button onClick={()=>sendNewComment(content)}>확인</button>
+      <button className="ce-btn" onClick={()=>sendNewComment(content)}>확인</button>
     </div>
   );
 }

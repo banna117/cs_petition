@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import "./LoginForm.scss";
 
-export default function LoginForm({loginComplete}) {
+export default function LoginForm({loginComplete, loginned}) {
     //variables
     const [name, setName] = useState("");
     const [major, setMajor] = useState("")
@@ -16,7 +16,7 @@ export default function LoginForm({loginComplete}) {
 
                 <div className="hp-nameinput">
                     <div className="hp-logintext">LOGIN</div>
-                    <div className="hp-input">
+                    <div className={"hp-input "}>
                         <input className="input-name" type="text" placeholder="Type your Name" onChange={(e)=>setName(e.target.value)}/>
                         <input className="input-major" type="text" placeholder="Type your Major" list="major-list" onChange={(e)=>setMajor(e.target.value)} />
                         <datalist id="major-list">
