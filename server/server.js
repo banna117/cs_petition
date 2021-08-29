@@ -11,6 +11,7 @@ const io = require("socket.io")(server, {
 })
 const db = require("./config/db");
 const resolve = require("resolve");
+const { title } = require("process");
 
 
 // const bodyParser = require('body-parser');
@@ -78,11 +79,12 @@ io.on('connection', (socket)=>{
   console.log("접속함")
   //petition 새로 받았을 때, 
   socket.on("newPost", (addingPost)=>{
-    //클라이언트로 그 정보를 그대로 보내준다.
-    io.emit("addPost", addingPost);
-    const testQuery = "INSERT INTO petitions VALUES ("+addingPost.pid+","+addingPost.uid+",\'" + addingPost.title + "\',\'" + addingPost.catId + "\',\'" + addingPost.description + "\',DATE_FORMAT(NOW(),'%Y.%m.%d'),0)"
+    //클라이언트로 그 정보를 그대로 보내준다. { uid, title, catId, description, date, state };
+    io.emit("addPost", {pid:petitionSize, uid: addingPost.uid, title:addingPost.title, catId:addingPost.catId, description: addingPost.description, date: addingPost.date, state: addingPost.state});
+    const testQuery = "INSERT INTO petitions VALUES ("+petitionSize+","+addingPost.uid+",\'" + addingPost.title + "\',\'" + addingPost.catId + "\',\'" + addingPost.description + "\',DATE_FORMAT(NOW(),'%Y.%m.%d'),0)"
   
     db.query(testQuery);
+    petitionSize+=1;
   })
   //comment 새로 달렸을 때,
   socket.on("newComment", (addingComment)=>{
@@ -100,9 +102,9 @@ io.on('connection', (socket)=>{
   
   })
   //새로 로그인할 때, name 과 major 정보를 저장하고 이를 다시 클라이언트로 보낸다. addingUser {name, major}
-  socket.on("newLogin", (addingUser)=>{
-    io.emit("addUser", {uid:userSize, name: addingUser.name, major: addingUser.major});
-    const testQuery = "INSERT INTO users VALUES ("+userSize+",\'"+addingUser.name+"\',\'"+addingUser.major+"\')";
+  socket.on("newLogin", (name, major)=>{
+    io.emit("addUser", {uid:userSize, name, major});
+    const testQuery = "INSERT INTO users VALUES ("+userSize+",\'"+name+"\',\'"+major+"\')";
     db.query(testQuery);
     console.log(testQuery);
 

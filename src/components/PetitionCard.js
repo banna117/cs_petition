@@ -4,7 +4,7 @@ import Dot from "../assets/icons/dot";
 import Category from "./Category";
 
 export default function PetitionCard({ petition: { pid, title, catId, date, description }, categories, agreements, setSelectedPost, filterCategoryState }) {
-    console.log(agreements)
+
     return (
         <button key={pid} className="list-petition" onClick={() => setSelectedPost(pid)}>
             {/*  data processing! */}

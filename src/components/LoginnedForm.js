@@ -1,8 +1,11 @@
+import { useEffect } from "react"
 import "./LoginnedForm.scss"
 
 export default function LoginnedForm({currentUser, logout}){
 
-
+    useEffect(()=>{
+        console.log("i am here")
+    }, [currentUser])
     return(
     <div className="form-idcard">
         <div className="idcard-top">

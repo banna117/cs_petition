@@ -29,38 +29,23 @@ export default function PetitionPage() {
 	const [selectedPost, setSelectedPost] = useState(-1);
 
 	const [searchKeyword, setSearchKeyword] = useState("");
-	//login 정보
-	const [loginnedUser, setLoginnedUser] = useState("");
 
+	//login 정보
 	const [loginned, setLoginned] = useState(false);
 	const [currentUser, setCurrentUser] = useState("");
 
-	//currentUser에 정보가 들어오면(로그인 시도), 새로고침 후
-	useEffect(()=> {
-		if(loginnedUser){
-			//현재 user 정보에 로그인 정보가 있다면, currentUser에 등록
-			if(users.some((user)=>user.name === loginnedUser.name && user.major === loginnedUser.major)){
-				setCurrentUser(users.filter((user)=>user.name === loginnedUser.name && user.major === loginnedUser.major)[0]);
-				console.log(currentUser);	
-			}
-			//현재 user 정보에 로그인 정보가 없다면, server에 알려서 추가하기.
-			else{
-				socket.emit("newLogin", (loginnedUser));
-			}
-			setLoginned(true)
-		}
-		else{
-			setLoginned(false)
-		}
-	},[loginnedUser])
 
 	useEffect(()=>{
+		console.log(sessionStorage.getItem('currentUser'));
 		//login 한 후 logout을 하지 않았을 때, 정보 유지.
-		if((sessionStorage.getItem('user_name') !== null) && (sessionStorage.getItem('user_major') !== null)){
-			setLoginnedUser({name: sessionStorage.getItem('user_name'), major: sessionStorage.getItem('user_major')})
+		if(sessionStorage.getItem('currentUser') !== null){
+			setCurrentUser(sessionStorage.getItem('currentUser'));
+			console.log(sessionStorage.getItem('currentUser'))
+			setLoginned(true);
+			console.log("must be here")
 		}
 		else{
-			setLoginnedUser("");
+			setCurrentUser("");
 		}
 	},[])
 
@@ -168,7 +153,8 @@ export default function PetitionPage() {
 		socket.on("addUser", (addingUser)=>{
 			setUsers((users)=>[...users, addingUser])
 			setCurrentUser(addingUser);
-
+			sessionStorage.setItem('currentUser', currentUser);
+			setLoginned(true);
 		})
 
 	}, [socket])
@@ -176,11 +162,10 @@ export default function PetitionPage() {
 	//청원 작성 완료 
     const writeComplete = (title, catId, description) => {
         const uid = currentUser.uid;
-        const pid = petitions.length;
         let today = new Date();
         const state = 0;
         const date = today.toLocaleDateString();
-		const newPetition = {pid, uid, title, catId, description, date, state };
+		const newPetition = { uid, title, catId, description, date, state };
 		
 		//서버에 새로 추가된 petition 보내기
 		socket.emit("newPost", newPetition);
@@ -190,26 +175,33 @@ export default function PetitionPage() {
 
 	//로그인 완료
 	const loginComplete = (name, major) => {
-		setLoginnedUser({name,major});
-		//sessionStorage에 데이터 저장해놓기.
-		sessionStorage.setItem('user_name', name);
-		sessionStorage.setItem('user_major', major)
+		//현재 user 정보에 로그인 정보가 있다면, currentUser에 등록 후 loginned true로 전환
+		if (users.some((user) => user.name === name && user.major === major)) {
+			setCurrentUser(users.filter((user) => user.name === name && user.major === major)[0]);
+			sessionStorage.setItem('currentUser', currentUser);
+			setLoginned(true);
+			console.log("i am here")
+		}
+		//현재 user 정보에 로그인 정보가 없다면, server에 알려서 추가하기.
+		else {
+			socket.emit("newLogin", (name, major));
+		}
 	}
 
 	//로그아웃 완료
 	const logout = ()=> {
-		setLoginnedUser("");
+		//currentUser 리셋 후 스토리지 데이터 없애기
         setCurrentUser("");
-
-		sessionStorage.removeItem('user_name');
-		sessionStorage.removeItem('user_major');
+		sessionStorage.removeItem('currentUser');
+		setLoginned(false);
 	 }
+
+	 //로그인이 필요한 서비스임을 알리기
 	const notifyNotLoginned = ()=>{
 		setPostingModalState(false);
 		alert("로그인이 필요한 서비스입니다.")
 	}
 
-	console.log(currentUser);
 	return (
 		<div className="petition-home">
 			<div className={"petition-left " +(hideNav ? "hide3" : "")}>

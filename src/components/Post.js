@@ -5,14 +5,14 @@ import Dot from "../assets/icons/dot";
 import Comment from "./Comment";
 import CustomEditor from "./CustomEditor";
 
-export default function Post({ petitionInfo: { pid, uid, title, catId, description, date, state }, comments,  categories, closePost, agreements, socket, loginned, user, userName }) {
+export default function Post({ petitionInfo: { pid, uid, title, catId, description, date, state }, comments,  categories, closePost, agreements, socket, loginned, user,  users, currentUser }) {
     console.log(comments)
     //comId => comments 의 length를 따져서 부여,
     const sendNewComment = (content) => {
         if(!loginned){alert("로그인이 필요한 서비스입니다.")}
         else{
         const comId = comments.length;
-        socket.emit("newComment", { pid, comId, uid, content, date });
+        socket.emit("newComment", { pid, comId, uid:currentUser.uid, content, date });
         }
     }
 
@@ -50,7 +50,7 @@ export default function Post({ petitionInfo: { pid, uid, title, catId, descripti
 
                 <CustomEditor sendNewComment={sendNewComment} />
                 {comments.map((comment) =>
-                    <Comment key={comment.comId} comment={comment} />
+                    <Comment key={comment.comId} comment={comment} users={users}/>
                 )
                 }
             </div>
