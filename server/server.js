@@ -19,21 +19,30 @@ const resolve = require("resolve");
 app.use(cors());
 app.use(express.json());
 
+//data for DB
+var petitionSize = 0;
+var commentSizes = [];
+var userSize = 0;
+
+//comment size per pid
+app.get("/commentsize", (req, res) => {
+  db.query("SELECT pid, COUNT(comId) as comsize FROM comments GROUP BY pid", (err, data) => {
+    console.log(data)
+    commentSizes = data;
+    if (!err) res.send(data);
+    else res.send(err);
+  });
+});
 
 //getting petitions from DB
 app.get("/petitions", (req, res) => {
   db.query("SELECT * FROM petitions", (err, data) => {
+    petitionSize=data.length;
     if (!err) res.send(data);
     else res.send(err);
   });
 });
-//getting petitions size from DB
-app.get("/petitions/size", (req, res) => {
-  db.query("SELECT COUNT(*) as size FROM petitions", (err, data) => {
-    if (!err) res.send(data);
-    else res.send(err);
-  });
-});
+
 //getting comments from DB
 app.get("/comments", (req, res) => {
   db.query("SELECT * FROM comments", (err, data) => {
@@ -56,28 +65,48 @@ app.get("/agreements", (req, res) => {
   })
 })
 
+//upload users from DB
+app.get("/users", (req, res) => {
+  db.query("SELECT * FROM users", (err, data) => {
+    userSize = data.length;
+    if(!err) res.send(data);
+    else res.send(data);
+  })
+})
+
 io.on('connection', (socket)=>{
   console.log("접속함")
-  
+  //petition 새로 받았을 때, 
   socket.on("newPost", (addingPost)=>{
-    console.log("on add post")
+    //클라이언트로 그 정보를 그대로 보내준다.
     io.emit("addPost", addingPost);
     const testQuery = "INSERT INTO petitions VALUES ("+addingPost.pid+","+addingPost.uid+",\'" + addingPost.title + "\',\'" + addingPost.catId + "\',\'" + addingPost.description + "\',DATE_FORMAT(NOW(),'%Y.%m.%d'),0)"
-    console.log(testQuery);
+  
     db.query(testQuery);
   })
+  //comment 새로 달렸을 때,
   socket.on("newComment", (addingComment)=>{
+    //클라이언트로 그 정보를 그대로 보내준다.
     io.emit("addComment", addingComment);
     console.log(addingComment);
     const testQuery = "INSERT INTO comments VALUES ("+addingComment.pid+","+addingComment.comId+"," + addingComment.uid + ",\'" + addingComment.content + "\',DATE_FORMAT(NOW(),'%Y.%m.%d'))"
     db.query(testQuery);
-    console.log(testQuery);
+  
   })
   socket.on("newAgree", (addingAgree)=>{
     io.emit("addAgree", addingAgree);
     const testQuery = "INSERT INTO agree VALUES ("+addingAgree.pid+","+addingAgree.uid+")";
     db.query(testQuery);
-    console.log(testQuery)
+  
+  })
+  //새로 로그인할 때, name 과 major 정보를 저장하고 이를 다시 클라이언트로 보낸다. addingUser {name, major}
+  socket.on("newLogin", (addingUser)=>{
+    io.emit("addUser", {uid:userSize, name: addingUser.name, major: addingUser.major});
+    const testQuery = "INSERT INTO users VALUES ("+userSize+",\'"+addingUser.name+"\',\'"+addingUser.major+"\')";
+    db.query(testQuery);
+    console.log(testQuery);
+
+    userSize += 1;
   })
 })
 

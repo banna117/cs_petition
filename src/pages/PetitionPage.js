@@ -7,8 +7,6 @@ import NavigationTab from "./NavigationTab";
 import WritingModal from "../components/WritingModal";
 import io from "socket.io-client"
 
-import Menu from "../assets/icons/Menu"
-
 const URL = "http://localhost:4000/"
 const socket = io.connect(URL);
 
@@ -17,12 +15,12 @@ export default function PetitionPage() {
 	const [petitions, setPetitions] = useState([]);
 	const [comments, setComments] = useState([]);
 	const [categories, setCategories] = useState([]);
-	const [petitionsSize, setPetitionsSize] = useState(0); //to keep track of the petitions size
 	const [agreements, setAgreements] = useState([]);
+	const [users, setUsers] = useState([]);
 
 	//검색창에 입력한 스트링값 저장
-	const [searchKeyword, setSearchKeyword] = useState("");
-
+	// const [searchKeyword, setSearchKeyword] = useState("");
+	//상태 변수들
 	const [filterCategoryState, setFilterCategoryState] = useState(-1);
 	const [postingModalState, setPostingModalState] = useState(false);
 
@@ -30,17 +28,42 @@ export default function PetitionPage() {
 	const [onGoingState, setOnGoingState] = useState(0)
 	const [selectedPost, setSelectedPost] = useState(-1);
 
+	const [searchKeyword, setSearchKeyword] = useState("");
 	//login 정보
-	const [userName, setUserName] = useState("");
-	const [userMajor, setUserMajor] = useState("");
+	const [loginnedUser, setLoginnedUser] = useState("");
 
 	const [loginned, setLoginned] = useState(false);
+	const [currentUser, setCurrentUser] = useState("");
 
+	//currentUser에 정보가 들어오면(로그인 시도), 새로고침 후
 	useEffect(()=> {
-		if(userName && userMajor){setLoginned(true)}
+		if(loginnedUser){
+			//현재 user 정보에 로그인 정보가 있다면, currentUser에 등록
+			if(users.some((user)=>user.name === loginnedUser.name && user.major === loginnedUser.major)){
+				setCurrentUser(users.filter((user)=>user.name === loginnedUser.name && user.major === loginnedUser.major)[0]);
+				console.log(currentUser);	
+			}
+			//현재 user 정보에 로그인 정보가 없다면, server에 알려서 추가하기.
+			else{
+				socket.emit("newLogin", (loginnedUser));
+			}
+			setLoginned(true)
+		}
 		else{
-			setLoginned(false)}
-	})
+			setLoginned(false)
+		}
+	},[loginnedUser])
+
+	useEffect(()=>{
+		//login 한 후 logout을 하지 않았을 때, 정보 유지.
+		if((sessionStorage.getItem('user_name') !== null) && (sessionStorage.getItem('user_major') !== null)){
+			setLoginnedUser({name: sessionStorage.getItem('user_name'), major: sessionStorage.getItem('user_major')})
+		}
+		else{
+			setLoginnedUser("");
+		}
+	},[])
+
 
 	//navigation 숨기기
 	const [hideNav, setHideNav] = useState(false);
@@ -69,19 +92,6 @@ export default function PetitionPage() {
 			})
 		}
 		fetchData2();
-	},[]);
-
-	//load petitions' size from DB 
-	useEffect(()=>{
-		async function fetchData3(){
-			await axios
-			.get("/petitions/size")
-			.then((res) => {
-				// console.log(res.data);
-				setPetitionsSize(res.data[0].size);
-			})
-		}
-		fetchData3();
 	},[]);
 
 	//load comments data from DB {pid, comId, uid, content, date}
@@ -126,6 +136,19 @@ export default function PetitionPage() {
 		fetchData5();
 	}, []);
 
+	//load agreements data from DB {uid, name, major}
+	useEffect(()=>{
+		async function fetchData6(){
+			await axios
+			.get("/users")
+			.then((res) => {
+				console.log(res.data);
+				setUsers(res.data);
+			})
+			.catch();
+		}
+		fetchData6();
+	}, []);
 
 	//handling server request
 	useEffect(() => {
@@ -141,14 +164,18 @@ export default function PetitionPage() {
 		socket.on("addAgree", (addingAgree)=> {
 			setAgreements((agreements)=>[...agreements, addingAgree])
 		})
+		//추가된 user 받아서 users에 추가, currentUser에 설정
+		socket.on("addUser", (addingUser)=>{
+			setUsers((users)=>[...users, addingUser])
+			setCurrentUser(addingUser);
+
+		})
 
 	}, [socket])
 
-
-
 	//청원 작성 완료 
     const writeComplete = (title, catId, description) => {
-        const uid = 1;
+        const uid = currentUser.uid;
         const pid = petitions.length;
         let today = new Date();
         const state = 0;
@@ -163,19 +190,26 @@ export default function PetitionPage() {
 
 	//로그인 완료
 	const loginComplete = (name, major) => {
-		setUserName(name);
-		setUserMajor(major);
+		setLoginnedUser({name,major});
+		//sessionStorage에 데이터 저장해놓기.
+		sessionStorage.setItem('user_name', name);
+		sessionStorage.setItem('user_major', major)
 	}
-	//
-	//const addNewComment = (addingComment) => {
-	//	setComments((comments) => [...comments, addingComment])
-	//}
 
+	//로그아웃 완료
+	const logout = ()=> {
+		setLoginnedUser("");
+        setCurrentUser("");
+
+		sessionStorage.removeItem('user_name');
+		sessionStorage.removeItem('user_major');
+	 }
 	const notifyNotLoginned = ()=>{
 		setPostingModalState(false);
 		alert("로그인이 필요한 서비스입니다.")
 	}
 
+	console.log(currentUser);
 	return (
 		<div className="petition-home">
 			<div className={"petition-left " +(hideNav ? "hide3" : "")}>
@@ -183,8 +217,6 @@ export default function PetitionPage() {
 															else{setHideNav(true)}}}></button>
 				<div className={"petition-nav "+ (hideNav ? "hide1" : "reveal")} >
 					{<NavigationTab loginned={loginned}
-									setUserName={setUserName}
-									setUserMajor={setUserMajor}
 									loginComplete={loginComplete} 
 									filterCategoryState={filterCategoryState} 
 									setFilterCategoryState={setFilterCategoryState} 
@@ -192,8 +224,8 @@ export default function PetitionPage() {
 									setSearchKeyword={setSearchKeyword}
 									setOnGoingState={setOnGoingState}
 									onGoingState={onGoingState}
-									userName={userName}
-									userMajor={userMajor}
+									currentUser={currentUser}
+									logout={logout}
 									/>}
 				</div>
 			</div>
@@ -210,6 +242,7 @@ export default function PetitionPage() {
 										setSelectedPost={setSelectedPost}
 										agreements = {agreements.filter(agreement=>agreement.pid === petition.pid)}
 										filterCategoryState={filterCategoryState}
+										
 								/>})
 						:
 							petitions.map((petition) => {
@@ -231,7 +264,10 @@ export default function PetitionPage() {
 								closePost={() => setSelectedPost(-1)} 
 								socket={socket}
 								agreements = {agreements.filter(agreement=>agreement.pid === selectedPost)}
-								// addNewComment={addNewComment}
+								loginned={loginned}
+								user = {users.filter((user) => user.uid === petitions[selectedPost].uid)}
+								currentUser={currentUser}
+								
 								/>
 
 					}

@@ -7,16 +7,17 @@ import LoginnedForm from "../components/LoginnedForm";
 
 export default function NavigationTab(props) {
 	const { setFilterCategoryState, filterCategoryState, openPostingModal, 
-		setSearchKeyword, search, setOnGoingState, onGoingState, loginComplete, loginned, userMajor, userName, setUserName, setUserMajor
+		setSearchKeyword, search, setOnGoingState, onGoingState, loginComplete, currentUser,logout, loginned
 	 }  = props;
+
 
 
 	return (
 		
 			<div className="tab">
 				<div className="logo-spot"><Logo1/></div>
-				<div className="login-box">{loginned ? <LoginnedForm userMajor={userMajor} userName={userName} loginned={loginned} setUserName={setUserName} setUserMajor={setUserMajor} /> 
-													: <LoginForm loginned={loginned} loginComplete={loginComplete}/>}</div>
+				<div className="login-box">{loginned ? <LoginnedForm currentUser={currentUser} logout = {logout} /> 
+													: <LoginForm loginComplete={loginComplete}/>}</div>
 				<div className="search">
 					<input className="search-bar" type="text" placeholder="검색..." onChange={(e)=>setSearchKeyword(e.target.value)}  ></input>
 					<button className="search-button" onClick={search}></button>

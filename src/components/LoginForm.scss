@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap');
 .hp-nameinput{
     
     height:100%;
@@ -10,11 +11,12 @@
         display: flex;
         flex-direction: row;
         justify-content: center;
-
+        font-family: 'Nanum Gothic', sans-serif;
+        font-weight: 400;
         color:var(--text-01);
         font-size: large;
         font-style: bold;
-        margin-bottom: 10px;
+        margin: 10px 0px 10px 0px;
     }
     .hp-input{
         display: flex;
@@ -45,17 +47,17 @@
         justify-content: center;
         .login-button{
             color:black;
-            width:50px;
-            height:20px;
-
+            width:60px;
+            height:30px;
+            border:none;
             border-radius: 5px;
             &:enabled{
-                background-color: var(--blue-02);
+                background-color: var(--container-02);
                 opacity: 1;
                 cursor: pointer;
             }
             &:disabled{
-                background-color: var(--blue-02);
+                background-color: var(--container-01);
                 opacity:0.5;
                 cursor:not-allowed;
             }

@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
 import "./LoginForm.scss";
 
-export default function LoginForm({loginComplete, loginned}) {
+export default function LoginForm({loginComplete}) {
     //variables
     const [name, setName] = useState("");
     const [major, setMajor] = useState("")
+
     //state
     useEffect(()=>{
         const btn = document.getElementById("login-complete-btn")
