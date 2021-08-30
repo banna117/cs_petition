@@ -102,9 +102,10 @@ io.on('connection', (socket)=>{
   
   })
   //새로 로그인할 때, name 과 major 정보를 저장하고 이를 다시 클라이언트로 보낸다. addingUser {name, major}
-  socket.on("newLogin", (name, major)=>{
-    io.emit("addUser", {uid:userSize, name, major});
-    const testQuery = "INSERT INTO users VALUES ("+userSize+",\'"+name+"\',\'"+major+"\')";
+  socket.on("newLogin", (addingUser)=>{
+
+    io.emit("addUser", {uid:userSize, name:addingUser.name, major:addingUser.major});
+    const testQuery = "INSERT INTO users VALUES ("+userSize+",\'"+addingUser.name+"\',\'"+addingUser.major+"\')";
     db.query(testQuery);
     console.log(testQuery);
 

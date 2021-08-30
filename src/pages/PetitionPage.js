@@ -36,11 +36,11 @@ export default function PetitionPage() {
 
 
 	useEffect(()=>{
-		console.log(sessionStorage.getItem('currentUser'));
+		console.log(sessionStorage.getItem('user_uid'));
 		//login 한 후 logout을 하지 않았을 때, 정보 유지.
-		if(sessionStorage.getItem('currentUser') !== null){
-			setCurrentUser(sessionStorage.getItem('currentUser'));
-			console.log(sessionStorage.getItem('currentUser'))
+		if(sessionStorage.getItem('user_uid') !== null){
+			setCurrentUser({uid:sessionStorage.getItem('user_uid'), name:sessionStorage.getItem('user_name'), major:sessionStorage.getItem('user_major')});
+			console.log(sessionStorage.getItem('user_uid'))
 			setLoginned(true);
 			console.log("must be here")
 		}
@@ -152,8 +152,11 @@ export default function PetitionPage() {
 		//추가된 user 받아서 users에 추가, currentUser에 설정
 		socket.on("addUser", (addingUser)=>{
 			setUsers((users)=>[...users, addingUser])
+			console.log(addingUser);
 			setCurrentUser(addingUser);
-			sessionStorage.setItem('currentUser', currentUser);
+			sessionStorage.setItem('user_uid', addingUser.uid);
+			sessionStorage.setItem('user_name', addingUser.name);
+			sessionStorage.setItem('user_major', addingUser.major);
 			setLoginned(true);
 		})
 
@@ -178,13 +181,17 @@ export default function PetitionPage() {
 		//현재 user 정보에 로그인 정보가 있다면, currentUser에 등록 후 loginned true로 전환
 		if (users.some((user) => user.name === name && user.major === major)) {
 			setCurrentUser(users.filter((user) => user.name === name && user.major === major)[0]);
-			sessionStorage.setItem('currentUser', currentUser);
+			sessionStorage.setItem('user_uid', users.filter((user) => user.name === name && user.major === major)[0].uid);
+			sessionStorage.setItem('user_name', name);
+			sessionStorage.setItem('user_major', major);
 			setLoginned(true);
 			console.log("i am here")
 		}
 		//현재 user 정보에 로그인 정보가 없다면, server에 알려서 추가하기.
 		else {
-			socket.emit("newLogin", (name, major));
+			console.log(name)
+			console.log(major)
+			socket.emit("newLogin", {name, major});
 		}
 	}
 
@@ -192,7 +199,9 @@ export default function PetitionPage() {
 	const logout = ()=> {
 		//currentUser 리셋 후 스토리지 데이터 없애기
         setCurrentUser("");
-		sessionStorage.removeItem('currentUser');
+		sessionStorage.removeItem('user_uid');
+		sessionStorage.removeItem('user_name');
+		sessionStorage.removeItem('user_major');
 		setLoginned(false);
 	 }
 
