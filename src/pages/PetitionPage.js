@@ -268,7 +268,7 @@ export default function PetitionPage() {
 								loginned={loginned}
 								user = {users.filter((user) => user.uid === petitions[selectedPost].uid)}
 								currentUser={currentUser}
-								
+								users={users}
 								/>
 
 					}
