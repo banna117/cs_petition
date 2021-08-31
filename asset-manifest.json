@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/cs_petition/static/css/main.546ae604.chunk.css",
+    "main.js": "/cs_petition/static/js/main.d95277a6.chunk.js",
+    "main.js.map": "/cs_petition/static/js/main.d95277a6.chunk.js.map",
+    "runtime-main.js": "/cs_petition/static/js/runtime-main.0740d7f9.js",
+    "runtime-main.js.map": "/cs_petition/static/js/runtime-main.0740d7f9.js.map",
+    "static/js/2.690433d8.chunk.js": "/cs_petition/static/js/2.690433d8.chunk.js",
+    "static/js/2.690433d8.chunk.js.map": "/cs_petition/static/js/2.690433d8.chunk.js.map",
+    "index.html": "/cs_petition/index.html",
+    "static/css/main.546ae604.chunk.css.map": "/cs_petition/static/css/main.546ae604.chunk.css.map",
+    "static/js/2.690433d8.chunk.js.LICENSE.txt": "/cs_petition/static/js/2.690433d8.chunk.js.LICENSE.txt",
+    "static/media/PetitionPage.scss": "/cs_petition/static/media/3643763_list_mark_menu_option_sign_icon.59f96ad3.svg",
+    "static/media/LoginnedForm.scss": "/cs_petition/static/media/loginUserImg.bd966c88.svg",
+    "static/media/NavigationTab.scss": "/cs_petition/static/media/magnifyingGlass.334e5d88.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0740d7f9.js",
+    "static/js/2.690433d8.chunk.js",
+    "static/css/main.546ae604.chunk.css",
+    "static/js/main.d95277a6.chunk.js"
+  ]
+}
