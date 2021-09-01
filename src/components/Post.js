@@ -6,23 +6,26 @@ import Comment from "./Comment";
 import CustomEditor from "./CustomEditor";
 
 export default function Post({ petitionInfo: { pid, uid, title, catId, description, date, state }, comments,  categories, closePost, agreements, socket, loginned, user,  users, currentUser }) {
-    console.log(comments)
+    console.log(currentUser)
+    console.log(user)
+    console.log(agreements);
     //comId => comments 의 length를 따져서 부여,
     const sendNewComment = (content) => {
         if(!loginned){alert("로그인이 필요한 서비스입니다.")}
         else{
         const comId = comments.length;
-        socket.emit("newComment", { pid, comId, uid:currentUser.uid, content, date });
+        socket.emit("newComment", { pid, comId, uid:parseInt(currentUser.uid), content, date });
         }
     }
 
     const sendNewAgreement = () => {
         if(!loginned){alert("로그인이 필요한 서비스입니다.")}
         //agreements 에 이미 동의한 상태
-        else if(agreements.some(agree=>agree.pid === pid && agree.uid === uid)){
+        else if(agreements.some(function (item){return item.uid === parseInt(currentUser.uid);})){
+            
             alert("이미 동의한 청원입니다!")
         }
-        else {socket.emit("newAgree", {pid, uid})}
+        else {socket.emit("newAgree", {pid, uid:parseInt(currentUser.uid)})}
     }
     
     return (

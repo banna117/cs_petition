@@ -160,6 +160,6 @@
       "react-app"
     ]
   },
-  "proxy": "http://localhost:4000",
-  "homepage": "https://banna117.github.io/cs_petition/"
+  "proxy": "http://localhost:4000"
+  
 }

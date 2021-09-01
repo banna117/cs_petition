@@ -11,13 +11,15 @@ const URL = "http://localhost:4000/"
 const socket = io.connect(URL);
 
 export default function PetitionPage() {
+
+	
 	//data from DB
 	const [petitions, setPetitions] = useState([]);
 	const [comments, setComments] = useState([]);
 	const [categories, setCategories] = useState([]);
 	const [agreements, setAgreements] = useState([]);
 	const [users, setUsers] = useState([]);
-
+	console.log(petitions);
 	//검색창에 입력한 스트링값 저장
 	// const [searchKeyword, setSearchKeyword] = useState("");
 	//상태 변수들
@@ -152,7 +154,6 @@ export default function PetitionPage() {
 		//추가된 user 받아서 users에 추가, currentUser에 설정
 		socket.on("addUser", (addingUser)=>{
 			setUsers((users)=>[...users, addingUser])
-			console.log(addingUser);
 			setCurrentUser(addingUser);
 			sessionStorage.setItem('user_uid', addingUser.uid);
 			sessionStorage.setItem('user_name', addingUser.name);
@@ -164,7 +165,8 @@ export default function PetitionPage() {
 
 	//청원 작성 완료 
     const writeComplete = (title, catId, description) => {
-        const uid = currentUser.uid;
+        const uid = parseInt(currentUser.uid);
+		
         let today = new Date();
         const state = 0;
         const date = today.toLocaleDateString();
@@ -185,12 +187,11 @@ export default function PetitionPage() {
 			sessionStorage.setItem('user_name', name);
 			sessionStorage.setItem('user_major', major);
 			setLoginned(true);
-			console.log("i am here")
+
 		}
 		//현재 user 정보에 로그인 정보가 없다면, server에 알려서 추가하기.
 		else {
-			console.log(name)
-			console.log(major)
+
 			socket.emit("newLogin", {name, major});
 		}
 	}
