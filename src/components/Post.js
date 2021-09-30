@@ -5,13 +5,13 @@ import Dot from "../assets/icons/dot";
 import Comment from "./Comment";
 import CustomEditor from "./CustomEditor";
 
-export default function Post({ petitionInfo: { pid, uid, title, catId, description, date, state }, comments,  categories, closePost, agreements, socket, loginned, user,  users, currentUser }) {
-    console.log(currentUser)
-    console.log(user)
-    console.log(agreements);
+export default function Post({ store, petitionInfo: { pid, uid, title, catId, description, date, state }, comments,  categories, closePost, agreements, socket, user,  users}) {
+    //currentUser
+    const currentUser = store.getState().loginned.currentUser;
+
     //comId => comments 의 length를 따져서 부여,
     const sendNewComment = (content) => {
-        if(!loginned){alert("로그인이 필요한 서비스입니다.")}
+        if(!store.getState().loginned.loginned){alert("로그인이 필요한 서비스입니다.")}
         else{
         const comId = comments.length;
         socket.emit("newComment", { pid, comId, uid:parseInt(currentUser.uid), content, date });
@@ -19,7 +19,7 @@ export default function Post({ petitionInfo: { pid, uid, title, catId, descripti
     }
 
     const sendNewAgreement = () => {
-        if(!loginned){alert("로그인이 필요한 서비스입니다.")}
+        if(!store.getState().loginned.loginned){alert("로그인이 필요한 서비스입니다.")}
         //agreements 에 이미 동의한 상태
         else if(agreements.some(function (item){return item.uid === parseInt(currentUser.uid);})){
             

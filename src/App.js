@@ -7,14 +7,14 @@ import PetitionPage from "./pages/PetitionPage";
 import "./styles.css";
 
 
-export default function App() {
+export default function App({store}) {
 
 
   return (
     <Router>
       <Switch>
         <Route path="/">
-          <PetitionPage />
+          <PetitionPage store={store}/>
         </Route>
 
       </Switch>

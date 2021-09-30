@@ -6,24 +6,27 @@ import Post from "../components/Post";
 import NavigationTab from "./NavigationTab";
 import WritingModal from "../components/WritingModal";
 import io from "socket.io-client"
+import { loginned, setLoginned } from "../features/login/loginnedSlice";
 
 const URL = "http://localhost:4000/"
 const socket = io.connect(URL);
 
-export default function PetitionPage() {
+export default function PetitionPage(props) {
+	const {store} = props;
+	console.log(store.getState());
 
-	
+
 	//data from DB
 	const [petitions, setPetitions] = useState([]);
 	const [comments, setComments] = useState([]);
 	const [categories, setCategories] = useState([]);
 	const [agreements, setAgreements] = useState([]);
 	const [users, setUsers] = useState([]);
-	console.log(petitions);
+
 	//검색창에 입력한 스트링값 저장
 	// const [searchKeyword, setSearchKeyword] = useState("");
 	//상태 변수들
-	const [filterCategoryState, setFilterCategoryState] = useState(-1);
+	// const [filterCategoryState, setFilterCategoryState] = useState(-1);
 	const [postingModalState, setPostingModalState] = useState(false);
 
 	//0: 진행중인 청원(최신순) 3: 진행중인 청원(청원순) 1:답변된 청원 2:만료된 청원
@@ -33,24 +36,8 @@ export default function PetitionPage() {
 	const [searchKeyword, setSearchKeyword] = useState("");
 
 	//login 정보
-	const [loginned, setLoginned] = useState(false);
-	const [currentUser, setCurrentUser] = useState("");
-
-
-	useEffect(()=>{
-		console.log(sessionStorage.getItem('user_uid'));
-		//login 한 후 logout을 하지 않았을 때, 정보 유지.
-		if(sessionStorage.getItem('user_uid') !== null){
-			setCurrentUser({uid:sessionStorage.getItem('user_uid'), name:sessionStorage.getItem('user_name'), major:sessionStorage.getItem('user_major')});
-			console.log(sessionStorage.getItem('user_uid'))
-			setLoginned(true);
-			console.log("must be here")
-		}
-		else{
-			setCurrentUser("");
-		}
-	},[])
-
+	// const [loginned, setLoginned] = useState(false);
+	// const [currentUser, setCurrentUser] = useState("");
 
 	//navigation 숨기기
 	const [hideNav, setHideNav] = useState(false);
@@ -154,18 +141,17 @@ export default function PetitionPage() {
 		//추가된 user 받아서 users에 추가, currentUser에 설정
 		socket.on("addUser", (addingUser)=>{
 			setUsers((users)=>[...users, addingUser])
-			setCurrentUser(addingUser);
+			store.dispatch(setLoginned({loginned:true, currentUser:addingUser}))
 			sessionStorage.setItem('user_uid', addingUser.uid);
 			sessionStorage.setItem('user_name', addingUser.name);
 			sessionStorage.setItem('user_major', addingUser.major);
-			setLoginned(true);
 		})
 
 	}, [socket])
 
 	//청원 작성 완료 
     const writeComplete = (title, catId, description) => {
-        const uid = parseInt(currentUser.uid);
+        const uid = parseInt(store.getState().loginned.currentUser.uid);
 		
         let today = new Date();
         const state = 0;
@@ -178,33 +164,6 @@ export default function PetitionPage() {
         setPostingModalState(false);
     }
 
-	//로그인 완료
-	const loginComplete = (name, major) => {
-		//현재 user 정보에 로그인 정보가 있다면, currentUser에 등록 후 loginned true로 전환
-		if (users.some((user) => user.name === name && user.major === major)) {
-			setCurrentUser(users.filter((user) => user.name === name && user.major === major)[0]);
-			sessionStorage.setItem('user_uid', users.filter((user) => user.name === name && user.major === major)[0].uid);
-			sessionStorage.setItem('user_name', name);
-			sessionStorage.setItem('user_major', major);
-			setLoginned(true);
-
-		}
-		//현재 user 정보에 로그인 정보가 없다면, server에 알려서 추가하기.
-		else {
-
-			socket.emit("newLogin", {name, major});
-		}
-	}
-
-	//로그아웃 완료
-	const logout = ()=> {
-		//currentUser 리셋 후 스토리지 데이터 없애기
-        setCurrentUser("");
-		sessionStorage.removeItem('user_uid');
-		sessionStorage.removeItem('user_name');
-		sessionStorage.removeItem('user_major');
-		setLoginned(false);
-	 }
 
 	 //로그인이 필요한 서비스임을 알리기
 	const notifyNotLoginned = ()=>{
@@ -218,64 +177,61 @@ export default function PetitionPage() {
 				<button className="hide-btn" onClick={()=>{if(hideNav){setHideNav(false)}
 															else{setHideNav(true)}}}></button>
 				<div className={"petition-nav "+ (hideNav ? "hide1" : "reveal")} >
-					{<NavigationTab loginned={loginned}
-									loginComplete={loginComplete} 
-									filterCategoryState={filterCategoryState} 
-									setFilterCategoryState={setFilterCategoryState} 
+					{<NavigationTab store = {store}
+									socket = {socket}
+									
 									openPostingModal={()=>setPostingModalState(true)}
 									setSearchKeyword={setSearchKeyword}
 									setOnGoingState={setOnGoingState}
 									onGoingState={onGoingState}
-									currentUser={currentUser}
-									logout={logout}
+									users = {users}
 									/>}
 				</div>
 			</div>
 			<div className={"petition " + (hideNav ? "hide2" : "")}>
 				<div className="petition-list">
 					{selectedPost === -1 ?
-						filterCategoryState === -1 ? 
+						store.getState().category.filter === -1 ? 
 							petitions.map((petition) =>{
 								if(petition.title.includes(searchKeyword) && onGoingState === petition.state)
 								return  <PetitionCard
+										store={store}
 										key={petition.pid}
 										petition={petition}
 										categories={categories}
 										setSelectedPost={setSelectedPost}
 										agreements = {agreements.filter(agreement=>agreement.pid === petition.pid)}
-										filterCategoryState={filterCategoryState}
 										
 								/>})
 						:
 							petitions.map((petition) => {
-								if((petition.catId === filterCategoryState) && (petition.title.includes(searchKeyword)) && onGoingState === petition.state)
+								if((petition.catId === store.getState().category.filter) && (petition.title.includes(searchKeyword)) && onGoingState === petition.state)
 								return <PetitionCard
 											key={petition.pid}
 											petition={petition}
 											categories={categories}
 											setSelectedPost={setSelectedPost}
 											agreements = {agreements.filter(agreement=>agreement.pid === petition.pid)}
-											filterCategoryState={filterCategoryState}
+											store={store}
 										/>
 								})
 					:								
 						<Post
+								store = {store}
 								petitionInfo={petitions[selectedPost]}
 								comments={comments.filter(comment=>comment.pid === selectedPost)}
 								categories={categories}
 								closePost={() => setSelectedPost(-1)} 
 								socket={socket}
 								agreements = {agreements.filter(agreement=>agreement.pid === selectedPost)}
-								loginned={loginned}
 								user = {users.filter((user) => user.uid === petitions[selectedPost].uid)}
-								currentUser={currentUser}
 								users={users}
 								/>
 
 					}
 				</div>
 			</div>
-			{loginned ? postingModalState && <WritingModal  
+			{store.getState().loginned.loginned ? postingModalState && <WritingModal  
 												writeComplete={writeComplete}
 												closeWritingModal ={()=>setPostingModalState(false)} 
 												/> : postingModalState && notifyNotLoginned()}
